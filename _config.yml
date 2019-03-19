@@ -1,14 +1,14 @@
-# Hexo Configuration
+﻿# Hexo Configuration
 ## Docs: https://hexo.io/docs/configuration.html
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
+title: 小华的乐园
 subtitle:
 description:
 keywords:
-author: John Doe
-language:
+author: 小华
+language: zh-CN
 timezone:
 
 # URL
