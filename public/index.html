@@ -62,6 +62,68 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-ant-design-pro-tips" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/20/ant-design-pro-tips/" class="article-date">
+  <time datetime="2019-03-20T07:37:04.000Z" itemprop="datePublished">2019-03-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Javascript/">Javascript</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/20/ant-design-pro-tips/">Ant Design Pro 的一些小技巧</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>前言：最近公司需要做一个APP的管理后台，之前公司的后台管理系统都是前后不分离的。现在考虑到后端的工作量也挺大的，所以打算前后分离了，前端我们最终决定使用蚂蚁金服开源框架：Ant Design Pro（真香）</p>
+<h1 id="Tip1：怎么使用动态路由"><a href="#Tip1：怎么使用动态路由" class="headerlink" title="Tip1：怎么使用动态路由"></a>Tip1：怎么使用动态路由</h1><p>很多公司的后台系统都是有权限控制的，所以会有动态路由这个说法，在Antd-Pro里，使用动态路由还是挺简单的：</p>
+<ul>
+<li>找到文件src/models/menu.js</li>
+<li>在effects/getMenuData里从后台拉取动态路由，再做上相应的权限控制（对menuData字段进行处理）</li>
+</ul>
+<h1 id="Tip2：-Provider和Content"><a href="#Tip2：-Provider和Content" class="headerlink" title="Tip2： Provider和Content"></a>Tip2： Provider和Content</h1><ul>
+<li><a href="https://stackoverflow.com/questions/48227188/how-does-provider-and-connect-work-in-react" target="_blank" rel="noopener">how-does-provider-and-connect-work-in-react</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/context.html" target="_blank" rel="noopener">Context（中文）</a></li>
+<li><a href="https://zh-hans.reactjs.org/docs/higher-order-components.html" target="_blank" rel="noopener">Higher-Order Components（中文）</a></li>
+</ul>
+<h1 id="Tip3：生成动态路由"><a href="#Tip3：生成动态路由" class="headerlink" title="Tip3：生成动态路由"></a>Tip3：生成动态路由</h1><p>每个用户登录进来，都会根据这个人的角色加载动态的菜单和权限，但是前端的路由其实是前端在router.config.js里定义出来的静态路由，所以并不能做出动态路由。</p>
+<h1 id="Tip4：权限控制"><a href="#Tip4：权限控制" class="headerlink" title="Tip4：权限控制"></a>Tip4：权限控制</h1><p>这里有几个概念需要先梳理清楚（用户、角色、权限、菜单）：<br>【权限】 依附于 【菜单】 依附于 【角色】 依附于 【用户】<br>所以应该有以下的结构：</p>
+<ul>
+<li>用户管理 增删改查 分配角色</li>
+<li>角色管理 增删改查 分配菜单和权限</li>
+<li>菜单管理 增删改查</li>
+<li>权限管理 增删改查</li>
+</ul>
+<p>备注：权限通常都是都是依附于菜单的，但是也有两者互不联系，单独管理的情况。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/20/ant-design-pro-tips/" data-id="cjtjswecj0000jot2n3dxi9e4" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ant-design/">ant-design</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/03/19/hello-world/" class="article-date">
@@ -97,7 +159,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/19/hello-world/" data-id="cjtfnxcev0000l8t2rbvboxpl" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/19/hello-world/" data-id="cjtjswecw0007jot2eoln7m2e" class="article-share-link">Share</a>
       
       
     </footer>
@@ -114,12 +176,33 @@
           <aside id="sidebar">
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Javascript/">Javascript</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/ant-design/">ant-design</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/">react</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/ant-design/" style="font-size: 10px;">ant-design</a> <a href="/tags/react/" style="font-size: 10px;">react</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
@@ -136,6 +219,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/03/20/ant-design-pro-tips/">Ant Design Pro 的一些小技巧</a>
+          </li>
         
           <li>
             <a href="/2019/03/19/hello-world/">Hello World</a>
