@@ -84,8 +84,9 @@ git checkout -b (branchname)
 合并分支：
 一旦某分支有了独立内容，你终究会希望将它合并回到你的主分支。 你可以使用以下命令将任何分支合并到当前分支中去：
 ``` git
-git merge (branchname)
+git merge --no-ff (branchname)
 ```
+
 
 列出分支：
 ``` git
@@ -96,6 +97,8 @@ git branch
 ``` git
 git branch -d (branchname)
 ```
+
+> 更高级的分支策略，建议看看阮一峰的文章：[Git分支管理策略](http://www.ruanyifeng.com/blog/2012/07/git.html)
 
 ### 查看提交历史
 ``` git
