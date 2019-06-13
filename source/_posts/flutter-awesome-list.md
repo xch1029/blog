@@ -25,7 +25,6 @@ assets:
 ### appBar部分
 - appBar需要透明的背景这样才能将后面的图片展示出来，看起来很像沉浸式。
 - 需要将elevations设置为0，这样就可以取消安卓特有的阴影效果，下面是代码:
-
 ``` dart
 Scaffold(
     appBar: AppBar(
@@ -85,7 +84,6 @@ ListTile(
 - 列表的展示使用的是ListView.builder()，两个必传参数itemCount和itemBuilder，前者控制列表的数量，后者控制item的展示，因为item的样式还是比较多的，所以抽离成单独的StatelessWidget组件：AwesomeListItem
 - 我们用InkWell组件将AwesomeListItem包裹，InkWell是flutter自带的组件，这个组件的特点是点击的时候带有水墨绽开的效果。点击item的时候，我们使用Navigator.push跳转到详情页面
 - 图片的展示，我们还是使用的FadeInImage，这种渐入效果的用户体验还是很不错的。然后再使用Hero()来包裹FadeInImage，这样能在页面跳转的时候提供图片之间的过渡动画，很是强大和炫酷
-
 ``` dart
 Hero(
     tag: index,
