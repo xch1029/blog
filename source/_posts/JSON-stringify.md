@@ -14,7 +14,7 @@ tags: javascript
 JSON.stringify(value[, replacer [, space]])
 ```
 
-## 下面我列举了三个常用的例子，直接上代码
+下面我列举了三个常用的例子，直接上代码
 
 ### 普通用法
 ``` javascript
