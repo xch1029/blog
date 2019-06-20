@@ -63,7 +63,7 @@ console.log(JSON.stringify(obj, null, '--'))
 ```
 
 ### 一个典型的应用场景
-在手机上或者没有控制台的时候，想输入某个对象，这时候会用到alert：
+在手机上或者没有控制台的时候，想输出某个对象，这时候会用到alert：
 
 ``` javascript
 alert(obj);
