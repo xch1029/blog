@@ -62,4 +62,26 @@ console.log(JSON.stringify(obj, null, '--'))
 */
 ```
 
+### 一个典型的应用场景
+在手机上或者没有控制台的时候，想输入某个对象，这时候会用到alert：
+
+``` javascript
+alert(obj);
+```
+效果却是这样的：
+
+![](http://pt2k23f08.bkt.clouddn.com/jsonQQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20190620171826.png)
+此时的你：
+
+![](http://pt2k23f08.bkt.clouddn.com/jsontimg.jpg)
+
+后来，你使用了JSON.stringify的第三个参数：
+
+``` javascript
+alert(JSON.stringify(obj, null, 2));
+```
+结果自然就很通畅了：
+
+![](http://pt2k23f08.bkt.clouddn.com/jsonQQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20190620171906.png)
+
 怎么样，是不是很爽，space传入数字应该可以满足大多数需求，我也推荐大家这么使用。
