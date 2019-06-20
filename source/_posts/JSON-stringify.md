@@ -3,8 +3,12 @@ title: JSON.stringify
 date: 2019-06-10 15:31:27
 tags: javascript
 ---
+![](https://user-gold-cdn.xitu.io/2019/6/20/16b74127890b575e?w=510&h=109&f=png&s=9883)
+> - 作者: 小华坚决上王者
+> - 建议阅读时间: 2 min
+> - [掘金地址](https://juejin.im/post/5d0b45866fb9a07ed136db0f)
 
-今天看到一篇介绍JSON.stringify，原来这个函数可以传入三个参数，这里我安利下第三个参数，专门用来美化输出的，先看下语法:
+> JSON.stringify()是个经常使用的前端方法，这个函数可以传入三个参数，这里我安利下第三个参数，专门用来`美化输出`，先看下语法:
 
 ```
 JSON.stringify(value[, replacer [, space]])
