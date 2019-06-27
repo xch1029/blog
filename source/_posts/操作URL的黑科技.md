@@ -83,3 +83,4 @@ searchParams.toString(); // "wd=蔡徐坤&skill=篮球+唱+跳+rap&year=2019&age
 ### 外链
 - [MDN参考](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams)
 - [博客地址查看 jser.tech](https://jser.tech/2019/06/14/操作URL的黑科技/)
+- [掘金](https://juejin.im/post/5d038c9051882548ac439933)

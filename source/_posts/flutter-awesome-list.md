@@ -101,6 +101,8 @@ Hero(
 
 ### 结尾
 - 文章中没有张贴全部代码，感兴趣的同学可以看下源码[xch1029/awesomelist](https://github.com/xch1029/awesomelist)
+- [掘金](https://juejin.im/post/5d0203ca5188256aa76bc38e)
+- [简书](https://www.jianshu.com/p/a7b902b9af88)
 - [颜色生成工具 来自这里](https://colorsupplyyy.com/app)
 - [图片 来自这里](https://picsum.photos/)
 - 受启发于 [FlutterAwesomeList](https://github.com/samarthagarwal/FlutterAwesomeList)
