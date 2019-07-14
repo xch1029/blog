@@ -6,7 +6,7 @@ tags: [flutter, UI]
 
 使用了flutter一段时间，越来越喜欢flutter了，flutter比我们想象中的强大。这篇文章介绍了怎么使用flutter来展示一个很漂亮的list，先看下效果图。
 
-<img src="http://pt2k23f08.bkt.clouddn.com/awesomeList.gif">
+<img src="http://qiniu.tbmao.com/awesomeList.gif">
 
 样式还是很漂亮的，下面我们一步一步完成这个小项目。
 ### 开发前准备

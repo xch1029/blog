@@ -6,7 +6,7 @@ tags: javascript
 ### 前言
 现在有这么个URL：www.baidu.com/s?wd=蔡徐坤&skill=篮球&year=2019 ，怎么才能获取query上的字段呢？这时候正则表达式就派上用场了，效果如图：
 
-![](http://pt2k23f08.bkt.clouddn.com/URLSearchParams1.jpg)
+![](http://qiniu.tbmao.com/URLSearchParams1.jpg)
 
 杀鸡焉用牛刀呢，今天我们来学习下专门用来处理URL的query的接口：URLSearchParams 。
 
@@ -72,13 +72,13 @@ searchParams.toString(); // "wd=蔡徐坤&skill=篮球+唱+跳+rap&year=2019&age
 
 ### 一波操作后
 
-![](http://pt2k23f08.bkt.clouddn.com/URLSearchParams2.gif)
+![](http://qiniu.tbmao.com/URLSearchParams2.gif)
 
 ### 兼容性
 
 现代浏览器基本没有啥大问题，但是IE的支持不是很理想。
 
-![](http://pt2k23f08.bkt.clouddn.com/URLSearchParams3.png)
+![](http://qiniu.tbmao.com/URLSearchParams3.png)
 
 ### 外链
 - [MDN参考](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams)

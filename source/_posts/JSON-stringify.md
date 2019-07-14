@@ -3,7 +3,7 @@ title: JSON.stringify
 date: 2019-06-10 15:31:27
 tags: javascript
 ---
-![](https://user-gold-cdn.xitu.io/2019/6/20/16b74127890b575e?w=510&h=109&f=png&s=9883)
+![](http://qiniu.tbmao.com/jsonlogo.png)
 > - 作者: 小华坚决上王者
 > - 建议阅读时间: 2 min
 > - [掘金地址](https://juejin.im/post/5d0b45866fb9a07ed136db0f)
@@ -70,10 +70,10 @@ alert(obj);
 ```
 效果却是这样的：
 
-![](http://pt2k23f08.bkt.clouddn.com/jsonQQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20190620171826.png)
+![](http://qiniu.tbmao.com/jsonQQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20190620171826.png)
 此时的你：
 
-![](http://pt2k23f08.bkt.clouddn.com/jsontimg.jpg)
+![](http://qiniu.tbmao.com/jsontimg.jpg)
 
 后来，你使用了JSON.stringify的第三个参数：
 
@@ -82,6 +82,6 @@ alert(JSON.stringify(obj, null, 2));
 ```
 结果自然就很通畅了：
 
-![](http://pt2k23f08.bkt.clouddn.com/jsonQQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20190620171906.png)
+![](http://qiniu.tbmao.com/jsonQQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20190620171906.png)
 
 怎么样，是不是很爽，space传入数字应该可以满足大多数需求，我也推荐大家这么使用。

@@ -7,7 +7,7 @@ tags: flutter
 > 现在的Flutter正是如火中天，昨天Google官方正式发布了`Flutter1.7`版本，主要包含了对Android X的支持和Play Store的一些更新，一些新的和增强的组件，以及一些问题的修复。
 
 本篇文章我们一起开发一个炫炫的列表展示，伴随着滚动，背景做一些相应的动画效果。先看下效果图:
-<img src="http://pt2k23f08.bkt.clouddn.com/blogscreenanimation1.gif" width="300" alt="screenanimation" />
+<img src="http://qiniu.tbmao.com/blogscreenanimation1.gif" width="300" alt="screenanimation" />
 
 ### 思路
 列表滚动的时候，获取垂直方向的滚动距离，再将这个值转化成角度单位带动齿轮的滚动
