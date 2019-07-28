@@ -271,4 +271,4 @@ class _HeroDetailState extends State<HeroDetail> {
 ### 更多链接
 - [源码](https://github.com/xch1029/LOL)
 - [博客](http://jser.tech/2019/07/28/lol)
-- [掘金]()
+- [掘金](https://juejin.im/post/5d3d733c6fb9a07ecf726d3a)
