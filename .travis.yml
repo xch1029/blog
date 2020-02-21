@@ -7,7 +7,7 @@ branches:
   only:
     - master # build master branch only
 script:
-  - hexo generate --config _config.yml ghpages.yml # generate static files
+  - hexo generate --config _config.yml,ghpages.yml # generate static files
 deploy:
   provider: pages
   skip-cleanup: true
