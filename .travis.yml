@@ -1,26 +1,18 @@
+sudo: false
 language: node_js
 node_js:
-- 12.16.1
+  - 12 # use nodejs v10 LTS
+cache: npm
 branches:
   only:
-  - master
-cache:
-  directories:
-  - node_modules
-before_install:
-- npm install hexo-cli -g
-install:
-- npm install
+    - master # build master branch only
 script:
-- hexo clean
-- hexo generate
+  - hexo generate # generate static files
 deploy:
   provider: pages
-  skip_cleanup: true
-  keep_history: true
-  github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
-  local-dir: ./public/
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: true
   on:
     branch: master
-
-
+  local-dir: public
