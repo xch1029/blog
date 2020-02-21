@@ -1,0 +1,26 @@
+language: node_js
+node_js:
+- 12.16.1
+branches:
+  only:
+  - master
+cache:
+  directories:
+  - node_modules
+before_install:
+- npm install hexo-cli -g
+install:
+- npm install
+script:
+- hexo clean
+- hexo generate
+deploy:
+  provider: pages
+  skip_cleanup: true
+  keep_history: true
+  github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  local-dir: ./public/
+  on:
+    branch: master
+
+
