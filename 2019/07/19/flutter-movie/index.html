@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="使用Flutter开发一款App是一件非常愉快的事情，其出色的性能、跨多端以及数量众多的原生组件都是我们选择Flutter的理由！今天我们就来使用Flutter开发一款电影类的App，先看下App的截图。   从main.dart开始在Flutter里main.dart是应用开始的地方:1234567891011121314151617181920import &apos;package:flutter/">
+<meta name="keywords" content="flutter">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flutter打造一款酷酷的电影App">
+<meta property="og:url" content="http://yoursite.com/2019/07/19/flutter-movie/index.html">
+<meta property="og:site_name" content="小华坚决上王者">
+<meta property="og:description" content="使用Flutter开发一款App是一件非常愉快的事情，其出色的性能、跨多端以及数量众多的原生组件都是我们选择Flutter的理由！今天我们就来使用Flutter开发一款电影类的App，先看下App的截图。   从main.dart开始在Flutter里main.dart是应用开始的地方:1234567891011121314151617181920import &apos;package:flutter/">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://qiniu.tbmao.com/flutterfluttermovie.jpg">
+<meta property="og:updated_time" content="2020-02-21T11:04:39.101Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Flutter打造一款酷酷的电影App">
+<meta name="twitter:description" content="使用Flutter开发一款App是一件非常愉快的事情，其出色的性能、跨多端以及数量众多的原生组件都是我们选择Flutter的理由！今天我们就来使用Flutter开发一款电影类的App，先看下App的截图。   从main.dart开始在Flutter里main.dart是应用开始的地方:1234567891011121314151617181920import &apos;package:flutter/">
+<meta name="twitter:image" content="http://qiniu.tbmao.com/flutterfluttermovie.jpg">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/07/19/flutter-movie/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Flutter打造一款酷酷的电影App | 小华坚决上王者</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小华坚决上王者</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <a href="https://github.com/xch1029" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/19/flutter-movie/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小华">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小华坚决上王者">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Flutter打造一款酷酷的电影App
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-19 23:01:47" itemprop="dateCreated datePublished" datetime="2019-07-19T23:01:47+00:00">2019-07-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-02-21 11:04:39" itemprop="dateModified" datetime="2020-02-21T11:04:39+00:00">2020-02-21</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>使用Flutter开发一款App是一件非常愉快的事情，其出色的性能、跨多端以及数量众多的原生组件都是我们选择Flutter的理由！今天我们就来使用Flutter开发一款电影类的App，先看下App的截图。</p>
+</blockquote>
+<p><img src="http://qiniu.tbmao.com/flutterfluttermovie.jpg" alt="App截图"></p>
+<h3 id="从main-dart开始"><a href="#从main-dart开始" class="headerlink" title="从main.dart开始"></a>从main.dart开始</h3><p>在Flutter里main.dart是应用开始的地方:<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:movie/utils/router.dart'</span> <span class="keyword">as</span> router;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() =&gt; runApp(MyApp());</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="comment">// This widget is the root of your application.</span></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> MaterialApp(</span><br><span class="line">      debugShowCheckedModeBanner: <span class="keyword">false</span>,</span><br><span class="line">      title: <span class="string">'电影'</span>,</span><br><span class="line">      theme: ThemeData(</span><br><span class="line">        primarySwatch: Colors.blue,</span><br><span class="line">      ),</span><br><span class="line">      onGenerateRoute: router.generateRoute,</span><br><span class="line">      initialRoute: <span class="string">'/'</span>,</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>一般的，在Flutter中管理路由有两种方式，一种是直接使用<code>Navigator.of(context).push()</code>，这种方式比较适合非常简单的应用，随着应用的不断发展，逻辑越来越多，推荐使用具名路由来管理应用，本文也是使用的这种方式。直接将路由挂在<code>MaterialApp</code>的<code>onGenerateRoute</code>字段上即可，具体的路由定义放在了单独的文件中进行管理<code>utils/router.dart</code>:<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:movie/screens/home.dart'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:movie/screens/detail.dart'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:movie/screens/videoPlayer.dart'</span>;</span><br><span class="line"></span><br><span class="line">Route&lt;<span class="built_in">dynamic</span>&gt; generateRoute(RouteSettings settings) &#123;</span><br><span class="line">  <span class="keyword">switch</span> (settings.name) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'/'</span>:</span><br><span class="line">      <span class="keyword">return</span> MaterialPageRoute(builder: (context) =&gt; Home());</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'detail'</span>:</span><br><span class="line">      <span class="keyword">var</span> arguments = settings.arguments;</span><br><span class="line">      <span class="keyword">return</span> MaterialPageRoute(</span><br><span class="line">          builder: (context) =&gt; MovieDetail(id: arguments));</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'video'</span>:</span><br><span class="line">      <span class="keyword">var</span> arguments = settings.arguments;</span><br><span class="line">      <span class="keyword">return</span> MaterialPageRoute(</span><br><span class="line">          builder: (context) =&gt; VideoPage(url: arguments));</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">return</span> MaterialPageRoute(builder: (context) =&gt; Home());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>真是像极了前端的路由定义，先将组件import进来，然后在各自的路由中return即可。</p>
+<h3 id="首页"><a href="#首页" class="headerlink" title="首页"></a>首页</h3><p>在首页中使用TabBar来展示”正在热映”和”TOP250”:<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:movie/screens/hot.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Home</span> <span class="keyword">extends</span> <span class="title">StatefulWidget</span> </span>&#123;</span><br><span class="line">  Home(&#123;Key key&#125;) : <span class="keyword">super</span>(key: key);</span><br><span class="line"></span><br><span class="line">  _HomeState createState() =&gt; _HomeState();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_HomeState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">Home</span>&gt; <span class="title">with</span> <span class="title">SingleTickerProviderStateMixin</span> </span>&#123;</span><br><span class="line">  TabController _tabController;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="keyword">void</span> initState() &#123;</span><br><span class="line">    <span class="keyword">super</span>.initState();</span><br><span class="line">    _tabController = TabController(vsync: <span class="keyword">this</span>, initialIndex: <span class="number">0</span>, length: <span class="number">2</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: TabBar(</span><br><span class="line">          controller: _tabController,</span><br><span class="line">          tabs: &lt;Widget&gt;[</span><br><span class="line">            Tab(text: <span class="string">'正在热映'</span>),</span><br><span class="line">            Tab(text: <span class="string">'TOP250'</span>),</span><br><span class="line">          ],</span><br><span class="line">        ),</span><br><span class="line">      ),</span><br><span class="line">      body: TabBarView(</span><br><span class="line">        controller: _tabController,</span><br><span class="line">        children: &lt;Widget&gt;[</span><br><span class="line">          Hot(),</span><br><span class="line">          Hot(history: <span class="keyword">true</span>),</span><br><span class="line">        ],</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>两个页面的布局是一样的，只有数据是不同的，所以我们复用这个页面<code>Hot</code>,传入<code>history</code>参数来代表是否为Top250页面</p>
+<h3 id="复用的Hot组件"><a href="#复用的Hot组件" class="headerlink" title="复用的Hot组件"></a>复用的Hot组件</h3><ul>
+<li>在这个组件中，通过history字段来区分成两个页面。</li>
+<li>在页面<code>initState</code>的生命周期中，请求数据，再进行相应的展示。</li>
+<li>下拉刷新的功能是使用的RefreshIndicator组件，在其<code>onRefresh</code>中进行下拉时的逻辑处理。</li>
+<li>Flutter没有直接提供上拉加载的组件，但是也是很容易实现，通过<code>ListView</code>的controller来做判断即可：当前滚动的位置是否到达最大滚动位置<code>_scrollController.position.pixels == _scrollController.position.maxScrollExtent</code></li>
+<li>为了获得良好的用户体验，Tab来回切换的时候，我们不希望页面重新渲染，Flutter提供了混入类AutomaticKeepAliveClientMixin，重载<code>wantKeepAlive</code>即可，下面是完整的代码:<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:movie/utils/api.dart'</span> <span class="keyword">as</span> api;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:movie/widgets/movieItem.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Hot</span> <span class="keyword">extends</span> <span class="title">StatefulWidget</span> </span>&#123;</span><br><span class="line">  <span class="keyword">final</span> <span class="built_in">bool</span> history;</span><br><span class="line">  Hot(&#123;Key key, <span class="keyword">this</span>.history = <span class="keyword">false</span>&#125;) : <span class="keyword">super</span>(key: key);</span><br><span class="line"></span><br><span class="line">  _HotState createState() =&gt; _HotState();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_HotState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">Hot</span>&gt; <span class="title">with</span> <span class="title">AutomaticKeepAliveClientMixin</span> </span>&#123;</span><br><span class="line">  <span class="built_in">List</span> _movieList = [];</span><br><span class="line">  <span class="built_in">int</span> start = <span class="number">0</span>;</span><br><span class="line">  <span class="built_in">int</span> total = <span class="number">0</span>;</span><br><span class="line">  ScrollController _scrollController = ScrollController();</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="keyword">void</span> initState() &#123;</span><br><span class="line">    <span class="keyword">super</span>.initState();</span><br><span class="line">    _scrollController.addListener(() &#123;</span><br><span class="line">      <span class="keyword">if</span> (_scrollController.position.pixels ==</span><br><span class="line">          _scrollController.position.maxScrollExtent) &#123;</span><br><span class="line">        getMore();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">this</span>.query(init: <span class="keyword">true</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  query(&#123;<span class="built_in">bool</span> init = <span class="keyword">false</span>&#125;) <span class="keyword">async</span> &#123;</span><br><span class="line">    <span class="built_in">Map</span> res = <span class="keyword">await</span> api.getMovieList(</span><br><span class="line">        history: widget.history, start: init ? <span class="number">0</span> : <span class="keyword">this</span>.start);</span><br><span class="line">    <span class="keyword">var</span> start = res[<span class="string">'start'</span>];</span><br><span class="line">    <span class="keyword">var</span> total = res[<span class="string">'total'</span>];</span><br><span class="line">    <span class="keyword">var</span> subjects = res[<span class="string">'subjects'</span>];</span><br><span class="line">    setState(() &#123;</span><br><span class="line">      <span class="keyword">if</span> (init) &#123;</span><br><span class="line">        <span class="keyword">this</span>._movieList = subjects;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>._movieList.addAll(subjects);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">this</span>.start = start + <span class="number">10</span>;</span><br><span class="line">      <span class="keyword">this</span>.total = total;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Future&lt;<span class="built_in">Null</span>&gt; _onRefresh() <span class="keyword">async</span> &#123;</span><br><span class="line">    <span class="keyword">await</span> <span class="keyword">this</span>.query(init: <span class="keyword">true</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  getMore() &#123;</span><br><span class="line">    <span class="keyword">if</span> (start &lt; total) &#123;</span><br><span class="line">      query();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="built_in">bool</span> <span class="keyword">get</span> wantKeepAlive =&gt; <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">super</span>.build(context);</span><br><span class="line">    <span class="keyword">return</span> RefreshIndicator(</span><br><span class="line">      onRefresh: _onRefresh,</span><br><span class="line">      child: ListView.builder(</span><br><span class="line">        controller: _scrollController,</span><br><span class="line">        itemCount: <span class="keyword">this</span>._movieList.length,</span><br><span class="line">        itemBuilder: (BuildContext context, <span class="built_in">int</span> index) =&gt;</span><br><span class="line">            MovieItem(data: <span class="keyword">this</span>._movieList[index]),</span><br><span class="line">      ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="电影的详情页面"><a href="#电影的详情页面" class="headerlink" title="电影的详情页面"></a>电影的详情页面</h3><p>点击单条电影时使用<code>Navigator.pushNamed(context, &#39;detail&#39;, arguments: data[&#39;id&#39;]);</code>即可跳转详情页，在详情页中通过<code>id</code>再请求接口获取详情:<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:flutter/material.dart'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:movie/widgets/detail/detailTop.dart'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:movie/widgets/detail/rateing.dart'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:movie/widgets/detail/actors.dart'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:movie/widgets/detail/photos.dart'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:movie/widgets/detail/comments.dart'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:movie/utils/api.dart'</span> <span class="keyword">as</span> api;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MovieDetail</span> <span class="keyword">extends</span> <span class="title">StatefulWidget</span> </span>&#123;</span><br><span class="line">  <span class="keyword">final</span> id;</span><br><span class="line">  MovieDetail(&#123;Key key, <span class="keyword">this</span>.id&#125;) : <span class="keyword">super</span>(key: key);</span><br><span class="line"></span><br><span class="line">  _MovieDetailState createState() =&gt; _MovieDetailState();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_MovieDetailState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">MovieDetail</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> _data = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="keyword">void</span> initState() &#123;</span><br><span class="line">    <span class="keyword">super</span>.initState();</span><br><span class="line">    <span class="keyword">this</span>.init();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  init() <span class="keyword">async</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> res = <span class="keyword">await</span> api.getMovieDetail(widget.id);</span><br><span class="line">    setState(() &#123;</span><br><span class="line">      _data = res;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      body: _data.isEmpty</span><br><span class="line">          ? Center(child: CircularProgressIndicator(),)</span><br><span class="line">          : SafeArea(</span><br><span class="line">              child: Container(</span><br><span class="line">                height: MediaQuery.of(context).size.height,</span><br><span class="line">                width: MediaQuery.of(context).size.width,</span><br><span class="line">                child: ListView(</span><br><span class="line">                  scrollDirection: Axis.vertical,</span><br><span class="line">                  children: &lt;Widget&gt;[</span><br><span class="line">                    MovieDetailTop(data: _data),</span><br><span class="line">                    Rate(count: _data[<span class="string">'ratings_count'</span>], rating: _data[<span class="string">'rating'</span>]),</span><br><span class="line">                    Container(padding: EdgeInsets.all(<span class="number">10</span>),child: Text(_data[<span class="string">'summary'</span>])),</span><br><span class="line">                    Actors(directors: _data[<span class="string">'directors'</span>], casts: _data[<span class="string">'casts'</span>]),</span><br><span class="line">                    Photos(photos: _data[<span class="string">'photos'</span>],),</span><br><span class="line">                    Comments(comments: _data[<span class="string">'popular_comments'</span>]),</span><br><span class="line">                  ],</span><br><span class="line">                ),</span><br><span class="line">              ),</span><br><span class="line">            ),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在详情页面中，我们封装了一些组件，这样能让项目更加容易阅读和维护，组件的具体实现就不详细介绍了，都是一些常用的原生组件，这些组件分别是：</p>
+<ul>
+<li><code>widgets/detail/detailTop.dart</code> 页面顶部的电影概述</li>
+<li><code>widgets/detail/rateing.dart</code> 评分组件</li>
+<li><code>widgets/detail/actors.dart</code> 演员表</li>
+<li><code>widgets/detail/photos.dart</code> 剧照</li>
+<li><code>widgets/detail/comments.dart</code> 评论组件</li>
+</ul>
+<h3 id="真实数据来自哪里？"><a href="#真实数据来自哪里？" class="headerlink" title="真实数据来自哪里？"></a>真实数据来自哪里？</h3><p>应用中的数据都是从豆瓣开发者api中拉取的，分别是，正在热映<code>in_theaters</code>，top250<code>top250</code>和电影详情<code>subject/id</code>三个接口,请求这些接口是需要<code>apikey</code>的，为了大家能方便请求数据，我将<code>apikey</code>上传到了github上，还请大家温柔点，不要将这个<code>apikey</code>干爆了。</p>
+<h3 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h3><p><a href="https://github.com/xch1029/movie" target="_blank" rel="noopener">源码仓库</a><br><a href="http://jser.tech/2019/07/19/flutter-movie" target="_blank" rel="noopener">博客地址</a><br><a href="https://juejin.im/post/5d31ea42f265da1bbe5e3ea7" target="_blank" rel="noopener">掘金地址</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/flutter/" rel="tag"># flutter</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/11/flutter-scroll-animation/" rel="next" title="Flutter滚动动画">
+                <i class="fa fa-chevron-left"></i> Flutter滚动动画
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/28/lol/" rel="prev" title="Flutter之英雄联盟">
+                Flutter之英雄联盟 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">小华</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/xch1029" title="GitHub &rarr; https://github.com/xch1029" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://juejin.im/user/57ab484dd342d30057867455" title="掘金 &rarr; https://juejin.im/user/57ab484dd342d30057867455" rel="noopener" target="_blank"><i class="fa fa-fw fa-掘金"></i>掘金</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#从main-dart开始"><span class="nav-number">1.</span> <span class="nav-text">从main.dart开始</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首页"><span class="nav-number">2.</span> <span class="nav-text">首页</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复用的Hot组件"><span class="nav-number">3.</span> <span class="nav-text">复用的Hot组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#电影的详情页面"><span class="nav-number">4.</span> <span class="nav-text">电影的详情页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#真实数据来自哪里？"><span class="nav-number">5.</span> <span class="nav-text">真实数据来自哪里？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关链接"><span class="nav-number">6.</span> <span class="nav-text">相关链接</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小华</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
