@@ -11,4 +11,4 @@
 - [Hello World](https://jser.tech/2019/03/20/hello-world/)
 - [2020年，你必须知道的JS数组技巧](https://juejin.im/post/5e4c03da6fb9a07cac1d55bc)
 
-测试jenkins1
+测试jenkins2
