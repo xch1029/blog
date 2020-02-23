@@ -327,6 +327,212 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/2020/02/23/write-a-blog-for-yourself/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小华">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小华坚决上王者">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/blog/2020/02/23/write-a-blog-for-yourself/" class="post-title-link" itemprop="url">2020年，必须拥有自己的博客网站(上)</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-23 16:26:18 / 修改时间：08:34:18" itemprop="dateCreated datePublished" datetime="2020-02-23T16:26:18+00:00">2020-02-23</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>很多优秀的技术人员都有自己的博客，写博客已经成了一种习惯。作为一名程序员，你，为什么要坚持写博客？答案有很多：</p>
+<ul>
+<li>能让人具备更好的总结能力</li>
+<li>加深自己对某项技术的理解</li>
+<li>获得别人的认可</li>
+<li>提高自己的表达能力</li>
+<li>为自己的生活留下足迹</li>
+<li>证明自己的能力</li>
+<li>开源精神</li>
+<li>用来装逼</li>
+<li>…</li>
+</ul>
+<p>不管是啥理由，一个优秀的程序员都应该不断的去激励自己，在日常中检讨自己，与千万优秀人看齐，把优秀当做一直习惯。</p>
+<p>所以，今天我们就来一步一步实现自己那独一无二的博客！</p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>搭建博客有很多种方案，可以从零开发所有功能(<a href="http://www.ruanyifeng.com/home.html" target="_blank" rel="noopener">阮一峰的个人网站</a>)，但这有点让人头大，繁琐的事务实在是太多了：页面的编写、后台的开发、留言板的开发。。。让人难以为继！另一种方案就是基于现有的集成框架，我们只关心自己输出的文章，其他的事情都留给框架去做。</p>
+<p>目前，这类的框架很多：<code>WordPress</code>、<code>Jekyll</code>、<code>VuePress</code>、<code>Hexo</code>等等，都是很优秀的框架。今天，我们尝试使用<code>Hexo</code>来搭建博客。</p>
+<h3 id="初始化项目"><a href="#初始化项目" class="headerlink" title="初始化项目"></a>初始化项目</h3><p>在使用<code>hexo-cli</code>初始化项目之前，我们需要使用npm以全局安装:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br></pre></td></tr></table></figure></p>
+<p>初始化一个项目：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo init myblog</span><br><span class="line">cd myblog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure></p>
+<p>因为网络的原因，加载的时间可能比较长，耐心等待下。</p>
+<p>然后，访问<a href="http://localhost:4000/" target="_blank" rel="noopener">http://localhost:4000/</a>你的博客就这么跑起来了：<br><img src="https://user-gold-cdn.xitu.io/2020/2/23/17070b5619fd2a0e?w=1380&amp;h=1040&amp;f=png&amp;s=423328" alt></p>
+<p>就这么跑起来了！！！很不可思议。现在有两个亟待解决的问题：</p>
+<ul>
+<li>一：博客外观使用的是默认的<code>landscape</code>主题，太死板而且容易撞衫</li>
+<li>二：我们的博客现在只是运行在本地，我们需要将之放到Github上，并且可以使用网址访问</li>
+</ul>
+<p>我们先来解决<strong>问题二</strong>，我们迫不及待地想通过<code>url</code>来访问我们的站点了!</p>
+<h3 id="将代码托管到github上"><a href="#将代码托管到github上" class="headerlink" title="将代码托管到github上"></a>将代码托管到github上</h3><p>针对国内访问<code>Github</code>网速很慢，我们也可以使用<code>码云</code>来托管代码，大体的配置都是相似的。只是个人觉得<code>Github</code>更正统一点，所以这里使用的是<code>Github</code></p>
+<p>要想将代码托管到<code>Github</code>上，我们需要新建一个项目：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/23/17070bdd1e57eece?w=379&amp;h=242&amp;f=png&amp;s=15109" alt></p>
+<p>点击<code>New repository</code>按钮以新建项目：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/23/17070be88f40c738?w=1181&amp;h=851&amp;f=png&amp;s=59408" alt></p>
+<p>填写上仓库名称和描述，然后点击<code>Create repository</code>按钮：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/23/17070bff10028013?w=1329&amp;h=802&amp;f=png&amp;s=69581" alt></p>
+<p>看到这个页面，就代表仓库真的创建完成了，现在我们跟着红框中的步骤，将本地的源码推送到<code>Github</code>上：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;first commit&quot;</span><br><span class="line">git remote add origin https://github.com/xch1029/myblog.git</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/23/17070c841b7ef3f1?w=1184&amp;h=731&amp;f=png&amp;s=57195" alt></p>
+<p>一切顺利的话，再次访问仓库的页面，我们看到了提交的代码，这说明我们本地的源码已经<code>push</code>到了仓库里。</p>
+<blockquote>
+<p>我们的目标是使用<code>url</code>来访问我们的博客，所以我们下一步使用的技术是<code>github-pages</code>，使用<code>github-pages</code>来展示我们的博客。</p>
+</blockquote>
+<h3 id="自动部署的github-pages"><a href="#自动部署的github-pages" class="headerlink" title="自动部署的github-pages"></a>自动部署的github-pages</h3><p>虽然使用的是<code>github-pages</code>，但是这并不意味着我们需要手动打包再手动部署，这一切繁杂的事务都让<code>travis-ci</code>帮我们完成吧。</p>
+<blockquote>
+<p>简单介绍下<code>travis-ci</code>：<code>travis-ci</code>是一个不需要自己搭建的在线持续集成工具，其最大的特点就是能和<code>github</code>无缝衔接，而且是免费使用（针对开源项目）。使用起来也非的常容易，只需要在项目中添加<code>.travis.yml</code>配置文件</p>
+</blockquote>
+<h3 id="配置自动化部署"><a href="#配置自动化部署" class="headerlink" title="配置自动化部署"></a>配置自动化部署</h3><p><img src="https://user-gold-cdn.xitu.io/2020/2/23/17070da9d7feecc3?w=1260&amp;h=622&amp;f=png&amp;s=55151" alt><br>使用<code>Github</code>账号登录<a href="https://www.travis-ci.org/" target="_blank" rel="noopener">travis</a>，然后将我们的博客仓库的开关打开，这是为了告诉<code>travis</code>允许使用项目中的<code>.travis.yml</code>以自动部署。</p>
+<h3 id="编写-travis-yml"><a href="#编写-travis-yml" class="headerlink" title="编写.travis.yml"></a>编写.travis.yml</h3><p>在项目的根目录中添加文件<code>.travis.yml</code><br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">sudo:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">node_js</span></span><br><span class="line"><span class="attr">node_js:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="number">12</span> <span class="comment"># 使用12的LTS版本</span></span><br><span class="line"><span class="attr">cache:</span> <span class="string">npm</span></span><br><span class="line"><span class="attr">branches:</span></span><br><span class="line"><span class="attr">  only:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">master</span> <span class="comment"># 只监听master分支的push</span></span><br><span class="line"><span class="attr">script:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">hexo</span> <span class="string">generate</span> <span class="comment"># 自动化构建的脚本</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  provider:</span> <span class="string">pages</span></span><br><span class="line"><span class="attr">  skip-cleanup:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  github-token:</span> <span class="string">$GITHUB_TOKEN</span></span><br><span class="line"><span class="attr">  keep-history:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  on:</span></span><br><span class="line"><span class="attr">    branch:</span> <span class="string">master</span></span><br><span class="line"><span class="attr">  local-dir:</span> <span class="string">public</span></span><br></pre></td></tr></table></figure></p>
+<p>注意两点：</p>
+<ul>
+<li><p>一：在<code>_config.yml</code>中，第17行的root属性，需要改为和项目名字一样，这是为了保证github-pages的静态资源路径引用正确</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 17行改为：</span><br><span class="line">root: /myblog/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>二：在<code>.travis.yml</code>中我们使用了变量<code>$GITHUB_TOKEN</code>，这是<code>travis</code>能够操作<code>Github</code>的关键。我们需要在<code>Github</code>中生成一个Token，再复制到<code>travis</code>中:</p>
+</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/23/17070f53ace8e4ca?w=861&amp;h=298&amp;f=png&amp;s=23595" alt></p>
+<p>前往Github<a href="https://github.com/settings/tokens" target="_blank" rel="noopener">新建 Personal Access Token</a>，只勾选 <code>repo</code> 的权限并生成一个新的 Token。Token 生成后请复制并保存好。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/23/17070fe514c4b8e5?w=1507&amp;h=187&amp;f=png&amp;s=10228" alt></p>
+<p>回到 Travis CI，前往你的 repository 的设置页面，在 <code>Environment Variables</code> 下新建一个环境变量，Name 为 <code>GITHUB_TOKEN</code>，Value 为刚才你在 GitHub 生成的 Token。确保 <code>DISPLAY VALUE IN BUILD LOG</code> 保持不被勾选 避免你的 Token 泄漏。点击 Add 保存。</p>
+<p><strong>这就是所有内容了！！！</strong>，将我们的代码提交了，看看有没有触发<code>travis</code>的自动构建：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &quot;add travis&quot;</span><br><span class="line">git push</span><br></pre></td></tr></table></figure></p>
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><p>现在访问地址：<a href="https://xch1029.github.io/myblog" target="_blank" rel="noopener">https://xch1029.github.io/myblog</a>，其中的<code>xch1029</code>替换成你的Github名字。</p>
+<h3 id="背后的原理"><a href="#背后的原理" class="headerlink" title="背后的原理"></a>背后的原理</h3><p>其实，travis新建了一个分支<code>gh-pages</code>以用作展示<code>github-pages</code>，而分支的内容就是我们构建后的静态资源。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/23/170710a5a632be9b?w=704&amp;h=543&amp;f=png&amp;s=29694" alt></p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/23/170710a7bfe049b6?w=901&amp;h=306&amp;f=png&amp;s=17418" alt></p>
+<h3 id="后续文章"><a href="#后续文章" class="headerlink" title="后续文章"></a>后续文章</h3><p>因为篇幅限制（不想将文章写得太长，以免难以阅读），今天就写到这里！因为我们已经可以访问我们的博客了！</p>
+<p>关于博文撰写、主题配置、自定义样式、自动化部署到服务器等文章，会在后续持续产出，请保持关注！</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/2020/02/19/the-tips-of-array-you-must-know-in-js/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -372,24 +578,12 @@
                 
               
 
-              <time title="创建时间：2020-02-19 23:24:16" itemprop="dateCreated datePublished" datetime="2020-02-19T23:24:16+00:00">2020-02-19</time>
+              <time title="创建时间：2020-02-19 15:24:16 / 修改时间：15:25:09" itemprop="dateCreated datePublished" datetime="2020-02-19T15:24:16+00:00">2020-02-19</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-02-22 14:05:37" itemprop="dateModified" datetime="2020-02-22T14:05:37+00:00">2020-02-22</time>
               
             
           </span>
@@ -561,7 +755,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-02-22 14:05:37" itemprop="dateModified" datetime="2020-02-22T14:05:37+00:00">2020-02-22</time>
+                <time title="修改时间：2020-02-23 08:34:18" itemprop="dateModified" datetime="2020-02-23T08:34:18+00:00">2020-02-23</time>
               
             
           </span>
@@ -754,7 +948,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-02-22 14:05:37" itemprop="dateModified" datetime="2020-02-22T14:05:37+00:00">2020-02-22</time>
+                <time title="修改时间：2020-02-23 08:34:18" itemprop="dateModified" datetime="2020-02-23T08:34:18+00:00">2020-02-23</time>
               
             
           </span>
@@ -949,7 +1143,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-02-22 14:05:37" itemprop="dateModified" datetime="2020-02-22T14:05:37+00:00">2020-02-22</time>
+                <time title="修改时间：2020-02-23 08:34:18" itemprop="dateModified" datetime="2020-02-23T08:34:18+00:00">2020-02-23</time>
               
             
           </span>
@@ -1131,7 +1325,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-02-22 14:05:37" itemprop="dateModified" datetime="2020-02-22T14:05:37+00:00">2020-02-22</time>
+                <time title="修改时间：2020-02-23 08:34:18" itemprop="dateModified" datetime="2020-02-23T08:34:18+00:00">2020-02-23</time>
               
             
           </span>
@@ -1350,7 +1544,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-02-22 14:05:37" itemprop="dateModified" datetime="2020-02-22T14:05:37+00:00">2020-02-22</time>
+                <time title="修改时间：2020-02-23 08:34:18" itemprop="dateModified" datetime="2020-02-23T08:34:18+00:00">2020-02-23</time>
               
             
           </span>
@@ -1528,7 +1722,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-02-22 14:05:37" itemprop="dateModified" datetime="2020-02-22T14:05:37+00:00">2020-02-22</time>
+                <time title="修改时间：2020-02-23 08:34:18" itemprop="dateModified" datetime="2020-02-23T08:34:18+00:00">2020-02-23</time>
               
             
           </span>
@@ -1722,7 +1916,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-02-22 14:05:37" itemprop="dateModified" datetime="2020-02-22T14:05:37+00:00">2020-02-22</time>
+                <time title="修改时间：2020-02-23 08:34:18" itemprop="dateModified" datetime="2020-02-23T08:34:18+00:00">2020-02-23</time>
               
             
           </span>
@@ -1902,7 +2096,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-02-22 14:05:37" itemprop="dateModified" datetime="2020-02-22T14:05:37+00:00">2020-02-22</time>
+                <time title="修改时间：2020-02-23 08:34:18" itemprop="dateModified" datetime="2020-02-23T08:34:18+00:00">2020-02-23</time>
               
             
           </span>
@@ -2007,168 +2201,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/2019/03/27/extensions-for-chrome/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="小华">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小华坚决上王者">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/blog/2019/03/27/extensions-for-chrome/" class="post-title-link" itemprop="url">炒鸡好用的浏览器插件</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-03-27 10:03:31" itemprop="dateCreated datePublished" datetime="2019-03-27T10:03:31+00:00">2019-03-27</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-02-22 14:05:37" itemprop="dateModified" datetime="2020-02-22T14:05:37+00:00">2020-02-22</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>作为开发工程师或者经常使用浏览器的人儿，很有必要知道一些功能很强劲的浏览器插件，工作效率能被大大的提升！</p>
-<h2 id="Console-Importer"><a href="#Console-Importer" class="headerlink" title="Console Importer"></a>Console Importer</h2><p> 介绍：在浏览器的控制台里就能很轻松的导入js和css，假如哪天你想试用下lodash，你可以直接在命令行中输入以下代码。<br> 用法：$i(‘lodash’)，然后就可以使用lodash了</p>
-<h2 id="Stream-Video-Downloader"><a href="#Stream-Video-Downloader" class="headerlink" title="Stream Video Downloader"></a>Stream Video Downloader</h2><p> 介绍：一个超级好用的视频下载插件。有时候你在网页里看到不错的视频想下载下来，但是网页不提供下载功能的时候，是不是很悲伤？有个这个以后，想下什么下什么，优酷的视频直接下。用的时候一定要低调哦[机智]</p>
-<h2 id="Google-翻译"><a href="#Google-翻译" class="headerlink" title="Google 翻译"></a>Google 翻译</h2><p>介绍：喜欢好英文文档的同学，看过来，划词翻译，妈妈再也不用担心我有点单词不认识了</p>
-<h2 id="Adblock-Plus"><a href="#Adblock-Plus" class="headerlink" title="Adblock Plus"></a>Adblock Plus</h2><p>介绍：有时候访问一个网站，发现网站给你提供的内容确实不错，就是有的区块上会展示讨厌的广告，这时候就该Adblock Plus上场了，可以屏蔽任何广告，或者是你不想看到的任何东西。Adblock Plus 是拥有超过 5 亿次下载的全球最受欢迎的广告拦截软件之一。</p>
-<h2 id="Octotree"><a href="#Octotree" class="headerlink" title="Octotree"></a>Octotree</h2><p>介绍：在github或者码云上看代码时，你还在为了不能看到层级菜单而烦恼吗？Octotree给你展示当前仓库了层级结构，可以展开和折叠，相当的完美</p>
-<h2 id="掘金"><a href="#掘金" class="headerlink" title="掘金"></a>掘金</h2><p>介绍：一个帮助开发者成长的社区</p>
-<h2 id="FireShort"><a href="#FireShort" class="headerlink" title="FireShort"></a>FireShort</h2><p>介绍：有时候遇到对整个网站截图的需求，这个插件可以胜任</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2215,7 +2247,7 @@
                 
                   <a href="/blog/archives/">
                 
-                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2267,7 +2299,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">10</span>
+                      
+                    
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
