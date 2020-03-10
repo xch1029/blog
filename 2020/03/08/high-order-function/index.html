@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/blog/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Gemini',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="“高阶函数”是个我们经常遇到的术语，英文名叫“higher-order function”，对于新手而言，还挺神秘。今天，我们就来探讨下高阶函数。 定义接收函数作为参数或者返回函数的函数 大白话就是：  首先是个函数 参数或者返回值是函数  举例子我们这里举两个例子来覆盖下上文的定义，其中，例一为接收函数作为参数的高阶函数，例二为返回函数的高阶函数。 例一：函数作为参数我们定义了一个叫evalua">
+<meta name="keywords" content="Javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS中的高阶函数">
+<meta property="og:url" content="http://yoursite.com/2020/03/08/high-order-function/index.html">
+<meta property="og:site_name" content="小华坚决上王者">
+<meta property="og:description" content="“高阶函数”是个我们经常遇到的术语，英文名叫“higher-order function”，对于新手而言，还挺神秘。今天，我们就来探讨下高阶函数。 定义接收函数作为参数或者返回函数的函数 大白话就是：  首先是个函数 参数或者返回值是函数  举例子我们这里举两个例子来覆盖下上文的定义，其中，例一为接收函数作为参数的高阶函数，例二为返回函数的高阶函数。 例一：函数作为参数我们定义了一个叫evalua">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-03-10T12:47:44.603Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS中的高阶函数">
+<meta name="twitter:description" content="“高阶函数”是个我们经常遇到的术语，英文名叫“higher-order function”，对于新手而言，还挺神秘。今天，我们就来探讨下高阶函数。 定义接收函数作为参数或者返回函数的函数 大白话就是：  首先是个函数 参数或者返回值是函数  举例子我们这里举两个例子来覆盖下上文的定义，其中，例一为接收函数作为参数的高阶函数，例二为返回函数的高阶函数。 例一：函数作为参数我们定义了一个叫evalua">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2020/03/08/high-order-function/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>JS中的高阶函数 | 小华坚决上王者</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小华坚决上王者</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/blog/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/blog/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/blog/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/blog/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <a href="https://github.com/xch1029" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/2020/03/08/high-order-function/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小华">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小华坚决上王者">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JS中的高阶函数
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-03-08 21:24:55" itemprop="dateCreated datePublished" datetime="2020-03-08T21:24:55+00:00">2020-03-08</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-03-10 12:47:44" itemprop="dateModified" datetime="2020-03-10T12:47:44+00:00">2020-03-10</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>“高阶函数”是个我们经常遇到的术语，英文名叫“higher-order function”，对于新手而言，还挺神秘。今天，我们就来探讨下高阶函数。</p>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p><strong>接收函数作为参数或者返回函数的函数</strong></p>
+<p>大白话就是：</p>
+<ol>
+<li>首先是个函数</li>
+<li>参数或者返回值是函数</li>
+</ol>
+<h3 id="举例子"><a href="#举例子" class="headerlink" title="举例子"></a>举例子</h3><p>我们这里举两个例子来覆盖下上文的定义，其中，例一为<code>接收函数</code>作为参数的高阶函数，例二为<code>返回函数</code>的高阶函数。</p>
+<h4 id="例一：函数作为参数"><a href="#例一：函数作为参数" class="headerlink" title="例一：函数作为参数"></a>例一：函数作为参数</h4><p>我们定义了一个叫<code>evaluatesToFive</code>的函数，接收两个参数：第一个参数是一个数字，第二个参数是一个函数。在函数<code>evaluatesToFive</code>中，将参数一(数字)传入参数二(函数)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function evaluatesToFive(num, fn) &#123;</span><br><span class="line">  return fn(num) === 5;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用的场景：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function divideByTwo(num) &#123;</span><br><span class="line">  return num / 2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">evaluatesToFive(10, divideByTwo);</span><br><span class="line">// true</span><br><span class="line"></span><br><span class="line">evaluatesToFive(20, divideByTwo);</span><br><span class="line">// false</span><br></pre></td></tr></table></figure></p>
+<p>哈哈，虽然函数本身用处不大，但是对描述高阶函数来说，很简单易懂。</p>
+<h4 id="例二：返回函数"><a href="#例二：返回函数" class="headerlink" title="例二：返回函数"></a>例二：返回函数</h4><p>本例中，我们创建函数<code>multiplyBy</code>，接收一个数字作为参数，并返回一个新的函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function multiplyBy(num1) &#123;</span><br><span class="line">  return function(num2) &#123;</span><br><span class="line">    return num1 * num2;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用场景：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const multiplyByThree = multiplyBy(3);</span><br><span class="line">const multiplyByFive = multiplyBy(5);</span><br><span class="line"></span><br><span class="line">multipyByThree(10); // 30</span><br><span class="line"></span><br><span class="line">multiplyByFive(10); // 50</span><br></pre></td></tr></table></figure></p>
+<p>是不是有点感觉了，通过生成新的函数以达到更具体的目的。</p>
+<h3 id="更复杂的应用实例"><a href="#更复杂的应用实例" class="headerlink" title="更复杂的应用实例"></a>更复杂的应用实例</h3><p>本例中，我们创建一个函数去检测新用户的注册信息是否能通过检验规则：</p>
+<ul>
+<li>大于18岁</li>
+<li>密码长度大于8</li>
+<li>同意用户协议</li>
+</ul>
+<p>新用户的注册信息大概是这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const newUser = &#123;</span><br><span class="line">  age: 24,</span><br><span class="line">  password: &apos;some long password&apos;,</span><br><span class="line">  agreeToTerms: true,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>接下来，我们来创建三个验证函数，通过返回<code>true</code>，否则返回<code>false</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function oldEnough(user) &#123;</span><br><span class="line">  return user.age &gt;= 18;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function passwordLongEnough(user) &#123;</span><br><span class="line">  return user.password.length &gt;= 8;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function agreeToTerms(user) &#123;</span><br><span class="line">  return user.agreeToTerms === true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>接下来，该主角登场了，我们需要创建一个高阶函数来一次性完成所有的验证。参数一是新用户注册信息，剩下的参数是我们上文创建的三个验证函数。在函数体中依次执行验证：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function validate(obj, ...tests) &#123;</span><br><span class="line">  for (let i = 0; i &lt; tests.length; i++) &#123;</span><br><span class="line">    if (tests[i](obj) === false) &#123;</span><br><span class="line">      return false;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>使用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">const newUser1 = &#123;</span><br><span class="line">  age: 40,</span><br><span class="line">  password: &apos;tncy4ty49r2mrx&apos;,</span><br><span class="line">  agreeToTerms: true,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">validate(newUser1, oldEnough, passwordLongEnough, agreeToTerms);</span><br><span class="line">// true</span><br><span class="line"></span><br><span class="line">const newUser2 = &#123;</span><br><span class="line">  age: 40,</span><br><span class="line">  password: &apos;short&apos;,</span><br><span class="line">  agreeToTerms: true,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">validate(newUser2, oldEnough, passwordLongEnough, agreeToTerms);</span><br><span class="line">// false</span><br></pre></td></tr></table></figure></p>
+<p>到目前为止，已经很棒了，继续看下去，看我们怎么改进</p>
+<h3 id="继续进化"><a href="#继续进化" class="headerlink" title="继续进化"></a>继续进化</h3><p>上文中，我们使用<code>validate</code>函数的时候需要传入多个验证函数(oldEnough, passwordLongEnough, agreeToTerms)，这违反了<code>最少知识原则</code>(有兴趣的同学们可以去了解下<a href="https://baike.baidu.com/item/%E8%BF%AA%E7%B1%B3%E7%89%B9%E6%B3%95%E5%88%99/2107000?fromtitle=%E6%9C%80%E5%B0%91%E7%9F%A5%E8%AF%86%E5%8E%9F%E5%88%99&amp;fromid=11187352&amp;fr=aladdin" target="_blank" rel="noopener">最少知识原则</a>)，看我们怎么将之继续改进：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function createValidator(...tests) &#123;</span><br><span class="line">  return function(obj) &#123;</span><br><span class="line">    for (let i = 0; i &lt; tests.length; i++) &#123;</span><br><span class="line">      if (tests[i](obj) === false) &#123;</span><br><span class="line">        return false;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return true;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个<code>createValidator</code>函数牛逼了，它接收任意数量的函数作为参数，返回值也是个函数。所以这个<code>createValidator</code>也是个高阶函数。</p>
+<p>使用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const userValidator = createValidator(</span><br><span class="line">  oldEnough,</span><br><span class="line">  passwordLongEnough,</span><br><span class="line">  agreeToTerms</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">userValidator(newUser1); // true</span><br><span class="line">userValidator(newUser2); // false</span><br></pre></td></tr></table></figure></p>
+<p>看出什么门道了没？通过函数<code>createValidator</code>生成更具体的验证函数<code>userValidator</code>，再使用<code>userValidator</code>去验证新用户的注册信息。多么精彩的高阶函数！意犹未尽的同学们可以再学习下另一个术语<code>柯里化</code>！</p>
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>本小文，我们一起探讨了JS中的高阶函数，千万不要以为高阶函数只是一道面试题。前端框架中很火的<code>高阶组件</code>也是引用自高阶函数。高阶函数在我们日常开发中经常会使用到，用好了，可以将很多复杂的业务逻辑进行解耦，对于代码的可读性和可维护性很有意义！文中也用到了闭包的知识，聪明的你发现了吗？不要让自己的知识永远躺在面试题中哦！</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/Javascript/" rel="tag"># Javascript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2020/03/06/ui-divider/" rel="next" title="打造自己的UI库--分割线篇">
+                <i class="fa fa-chevron-left"></i> 打造自己的UI库--分割线篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">小华</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/blog/archives/">
+                
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/blog/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/xch1029" title="GitHub &rarr; https://github.com/xch1029" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://juejin.im/user/57ab484dd342d30057867455" title="掘金 &rarr; https://juejin.im/user/57ab484dd342d30057867455" rel="noopener" target="_blank"><i class="fa fa-fw fa-掘金"></i>掘金</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义"><span class="nav-number">1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#举例子"><span class="nav-number">2.</span> <span class="nav-text">举例子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#例一：函数作为参数"><span class="nav-number">2.1.</span> <span class="nav-text">例一：函数作为参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#例二：返回函数"><span class="nav-number">2.2.</span> <span class="nav-text">例二：返回函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更复杂的应用实例"><span class="nav-number">3.</span> <span class="nav-text">更复杂的应用实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#继续进化"><span class="nav-number">4.</span> <span class="nav-text">继续进化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结语"><span class="nav-number">5.</span> <span class="nav-text">结语</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小华</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/blog/js/utils.js?v=7.1.0"></script>
+
+  <script src="/blog/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/blog/js/affix.js?v=7.1.0"></script>
+
+  <script src="/blog/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/blog/js/scrollspy.js?v=7.1.0"></script>
+<script src="/blog/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/blog/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

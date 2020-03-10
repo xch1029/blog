@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/blog/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Gemini',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="在上篇教程 2020年，必须拥有自己的博客网站(上)中，我们使用Hexo开发了一套博客，并成功使用travis-ci将其自动化部署到github-pages，预览地址。 本篇教程作为这个系列的第二篇，主要讲解怎么使用Hexo进行创作以及主题的配置。 官方有个主题集合的页面https://hexo.io/themes/，页面上提供了大量的主题以供大家挑选。但是这不能满足所有的口味，所幸Hexo的主题">
+<meta name="keywords" content="Hexo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2020年，必须拥有自己的博客网站(中)">
+<meta property="og:url" content="http://yoursite.com/2020/02/24/write-a-blog-for-yourself2/index.html">
+<meta property="og:site_name" content="小华坚决上王者">
+<meta property="og:description" content="在上篇教程 2020年，必须拥有自己的博客网站(上)中，我们使用Hexo开发了一套博客，并成功使用travis-ci将其自动化部署到github-pages，预览地址。 本篇教程作为这个系列的第二篇，主要讲解怎么使用Hexo进行创作以及主题的配置。 官方有个主题集合的页面https://hexo.io/themes/，页面上提供了大量的主题以供大家挑选。但是这不能满足所有的口味，所幸Hexo的主题">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2020/2/24/1707762d166630c4?w=1920&h=944&f=png&s=45272">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2020/2/24/170776a36206bdb1?w=640&h=133&f=png&s=4964">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2020/2/24/1707776d5ea7a90e?w=1362&h=682&f=png&s=67550">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2020/2/24/1707784edf5b12a2?w=1920&h=944&f=png&s=74938">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2020/2/24/170779b5602c481e?w=1920&h=944&f=png&s=31921">
+<meta property="og:updated_time" content="2020-03-10T12:47:44.607Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2020年，必须拥有自己的博客网站(中)">
+<meta name="twitter:description" content="在上篇教程 2020年，必须拥有自己的博客网站(上)中，我们使用Hexo开发了一套博客，并成功使用travis-ci将其自动化部署到github-pages，预览地址。 本篇教程作为这个系列的第二篇，主要讲解怎么使用Hexo进行创作以及主题的配置。 官方有个主题集合的页面https://hexo.io/themes/，页面上提供了大量的主题以供大家挑选。但是这不能满足所有的口味，所幸Hexo的主题">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2020/2/24/1707762d166630c4?w=1920&h=944&f=png&s=45272">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2020/02/24/write-a-blog-for-yourself2/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>2020年，必须拥有自己的博客网站(中) | 小华坚决上王者</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小华坚决上王者</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/blog/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/blog/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/blog/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/blog/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <a href="https://github.com/xch1029" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/2020/02/24/write-a-blog-for-yourself2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小华">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小华坚决上王者">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">2020年，必须拥有自己的博客网站(中)
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-24 12:39:27" itemprop="dateCreated datePublished" datetime="2020-02-24T12:39:27+00:00">2020-02-24</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-03-10 12:47:44" itemprop="dateModified" datetime="2020-03-10T12:47:44+00:00">2020-03-10</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在上篇教程 <a href="https://juejin.im/post/5e514b2de51d45271849db03" target="_blank" rel="noopener">2020年，必须拥有自己的博客网站(上)</a>中，我们使用Hexo开发了一套博客，并成功使用travis-ci将其自动化部署到github-pages，<a href="https://xch1029.github.io/myblog/" target="_blank" rel="noopener">预览地址</a>。</p>
+<p>本篇教程作为这个系列的第二篇，主要讲解怎么使用Hexo进行创作以及主题的配置。</p>
+<p>官方有个主题集合的页面<a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a>，页面上提供了大量的主题以供大家挑选。但是这不能满足所有的口味，所幸Hexo的主题配置并不局限于官方提供的这些，事实上，任何第三方主题都可以应用到你的博客上，甚至可以自定义样式，这就是Hexo在主题上的灵活性。</p>
+<p>为了证明这点，我们并不使用来自官方页面中的主题，我们在github上找到<code>hexo-theme-next</code>主题，这个主题看起来很清爽：<a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">地址</a></p>
+<h3 id="下载主题"><a href="#下载主题" class="headerlink" title="下载主题"></a>下载主题</h3><p>我们所有的主题都被放在根目录<code>/themes</code>文件夹下，现在只有一个默认主题<code>/themes/landscape</code>。我们现在将<code>next</code>主题的源码下载到<code>themes/next</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 执行</span><br><span class="line">git clone https://github.com/iissnan/hexo-theme-next.git themes/next</span><br></pre></td></tr></table></figure></p>
+<p>有时候，github的网速很慢，我们也可以直接打包下载，然后在themes/next中解压即可，最终你的themes目录看起来是这样的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">|-themes</span><br><span class="line">|--landscape</span><br><span class="line">|--next</span><br></pre></td></tr></table></figure></p>
+<p>现在主题的代码已经下载到了项目中，下一步，修改<code>_config.yml</code>文件以应用<code>next</code>主题，这个文件是<code>hexo</code>中所有配置的集合，以后我们会经常和它打交道。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># _config.yml</span><br><span class="line"># ...</span><br><span class="line"># 中文</span><br><span class="line">language: zh-CN</span><br><span class="line"># 应用next主题</span><br><span class="line">theme: next</span><br></pre></td></tr></table></figure></p>
+<p>配置好后，本地启动博客：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo serve</span><br><span class="line"># 或者简写 hexo s</span><br></pre></td></tr></table></figure></p>
+<p>完美的运行起来了。</p>
+<h3 id="主题的更新"><a href="#主题的更新" class="headerlink" title="主题的更新"></a>主题的更新</h3><p>后面，这个主题要是发布了新的版本，更新是件很简单的事儿：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd themes/next</span><br><span class="line">git pull</span><br></pre></td></tr></table></figure></p>
+<h3 id="修改更多默认配置"><a href="#修改更多默认配置" class="headerlink" title="修改更多默认配置"></a>修改更多默认配置</h3><p>初始化项目时有些默认的配置项不是我们想要的，我们需要再次修改<code>_config.yml</code>文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># _config.yml</span><br><span class="line"># ...</span><br><span class="line">title: 欢迎来到德莱联盟</span><br><span class="line">subtitle: &apos;这是你歇脚的地方&apos;</span><br><span class="line">author: 迈克尔</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/24/1707762d166630c4?w=1920&amp;h=944&amp;f=png&amp;s=45272" alt><br>现在有点样子了</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/24/170776a36206bdb1?w=640&amp;h=133&amp;f=png&amp;s=4964" alt></p>
+<p>页脚的强力驱动和主题我们也可以隐藏了，这些配置属于<code>next</code>，所以我们需要修改<code>/themes/next/_config.yml</code>文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">powered:</span><br><span class="line">  # Hexo link (Powered by Hexo).</span><br><span class="line">  enable: false</span><br><span class="line"></span><br><span class="line">theme:</span><br><span class="line">  # Theme &amp; scheme info link (Theme - NexT.scheme).</span><br><span class="line">  enable: false</span><br></pre></td></tr></table></figure></p>
+<h3 id="开始编写第一篇文章"><a href="#开始编写第一篇文章" class="headerlink" title="开始编写第一篇文章"></a>开始编写第一篇文章</h3><p>让我们开启创作之旅吧，写下第一篇文章。在Hexo中写作使用的是<code>markdown</code>，所以在写作之前，我们简单温习下markdown的语法：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/24/1707776d5ea7a90e?w=1362&amp;h=682&amp;f=png&amp;s=67550" alt></p>
+<p>运行以下命令生成一篇文章<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># hexo new [layout] &lt;title&gt;</span><br><span class="line">hexo new welcome-lol</span><br></pre></td></tr></table></figure></p>
+<p>hexo自动为我们生成了.md文件：<code>/source/_posts/welcome-lol.md</code>，我们继续，开始编辑这个文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"># welcome-lol.md</span><br><span class="line">---</span><br><span class="line">title: 欢迎大家一起来玩LOL</span><br><span class="line">date: 2020-02-24 21:56:12</span><br><span class="line">tags: games</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">### 什么是英雄联盟？</span><br><span class="line">英雄联盟（League of Legends）是由美国Riot Games开发，腾讯游戏运营的全新英雄对战网游。英雄联盟的主创团队由各著名游戏公司的核心美术、策划、程序人员组成，他们打造了游戏中风格特色各异的英雄，加入更加丰富的物品合成系统、地图玩法、天梯匹配机制，以及独创的“召唤师”技能、符文、天赋组合，让玩家感受不一样的英雄对战网游。</span><br><span class="line"></span><br><span class="line">在游戏中，玩家将扮演一位召唤者，并选择你所信任的联盟国进入这个游戏的正义领域，为了控制瓦罗然的权利而奋战。在这个联盟中只有一条规则：胜者就是一切！</span><br><span class="line"></span><br><span class="line">### 全新英雄对战网游</span><br><span class="line">英雄联盟中拥有的海量英雄及皮肤让人印象深刻——这些英雄不仅在外观上风格迥异，甚至个个都有自己独特的性格和脾气，例如：正气凛然的无畏先锋军团领袖—德玛西亚之力盖伦、意志坚强的弗雷尔卓德部族领袖—寒冰射手艾希、乐于钻研的魔法学者—流浪法师瑞兹……除此之外，你还可以在英雄联盟中看到代表不同地域文化特色的角色或皮肤，其中包括中国武术大师、北欧冰雪巨人、日本忍者、古埃及神话角色等。</span><br><span class="line"></span><br><span class="line">在游戏中，身为召唤师的玩家在每局游戏中都将召唤一位英雄帮助自己进行战斗。目前已经有许多英雄协助他们达成目标，在英雄联盟中完成各自心中的正义之战！我们也深信，在英雄联盟超过100位英雄中，总有一个是合适你的！</span><br><span class="line"></span><br><span class="line">英雄，为你而战！</span><br><span class="line"></span><br><span class="line">注：英雄联盟每周有13位免费英雄可供使用</span><br><span class="line"></span><br><span class="line">### 初识《英雄联盟》</span><br><span class="line">首次进入游戏的玩家，系统会提示他选择自己的游戏水平，目前共分为4个等级，分别为</span><br><span class="line">- 我是新手</span><br><span class="line">- 我玩过英雄对战游戏</span><br><span class="line">- 我是高手</span><br><span class="line">- 我是大湿</span><br><span class="line">&gt; 我们强烈建议新手玩家选择等级 `我是新手` 通过游戏中的新手教程来了解基础操作。</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/24/1707784edf5b12a2?w=1920&amp;h=944&amp;f=png&amp;s=74938" alt><br>真的是太酷了，hexo为我们做了大量背后的脏活，我们只要集中精力在我们的创作上即可！</p>
+<h3 id="开启更多特性"><a href="#开启更多特性" class="headerlink" title="开启更多特性"></a>开启更多特性</h3><p>可以说，<code>_config.yml</code>文件承载着博客的一切，这一步我们加入更多的有趣特性，比如Github链接、Github徽章、关于我页面等：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/24/170779b5602c481e?w=1920&amp;h=944&amp;f=png&amp;s=31921" alt></p>
+<h3 id="提交代码"><a href="#提交代码" class="headerlink" title="提交代码"></a>提交代码</h3><p>最后一步，提交代码至Github，触发travis-ci的自动化构建，再次查看我们的博客地址，已经有了新的变化！！！<br><a href="https://xch1029.github.io/myblog/" target="_blank" rel="noopener">博客预览地址</a></p>
+<h3 id="下一篇"><a href="#下一篇" class="headerlink" title="下一篇"></a>下一篇</h3><p>请持续关注这个系列，下一篇：基于Jenkins自动化部署博客到自己的服务器和域名</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/Hexo/" rel="tag"># Hexo</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2020/02/23/write-a-blog-for-yourself/" rel="next" title="2020年，必须拥有自己的博客网站(上)">
+                <i class="fa fa-chevron-left"></i> 2020年，必须拥有自己的博客网站(上)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2020/02/28/write-a-blog-for-yourself3/" rel="prev" title="2020年，必须拥有自己的博客网站(下)">
+                2020年，必须拥有自己的博客网站(下) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">小华</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/blog/archives/">
+                
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/blog/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/xch1029" title="GitHub &rarr; https://github.com/xch1029" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://juejin.im/user/57ab484dd342d30057867455" title="掘金 &rarr; https://juejin.im/user/57ab484dd342d30057867455" rel="noopener" target="_blank"><i class="fa fa-fw fa-掘金"></i>掘金</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载主题"><span class="nav-number">1.</span> <span class="nav-text">下载主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主题的更新"><span class="nav-number">2.</span> <span class="nav-text">主题的更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改更多默认配置"><span class="nav-number">3.</span> <span class="nav-text">修改更多默认配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开始编写第一篇文章"><span class="nav-number">4.</span> <span class="nav-text">开始编写第一篇文章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开启更多特性"><span class="nav-number">5.</span> <span class="nav-text">开启更多特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提交代码"><span class="nav-number">6.</span> <span class="nav-text">提交代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下一篇"><span class="nav-number">7.</span> <span class="nav-text">下一篇</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小华</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/blog/js/utils.js?v=7.1.0"></script>
+
+  <script src="/blog/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/blog/js/affix.js?v=7.1.0"></script>
+
+  <script src="/blog/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/blog/js/scrollspy.js?v=7.1.0"></script>
+<script src="/blog/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/blog/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

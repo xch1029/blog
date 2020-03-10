@@ -327,6 +327,740 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/2019/06/14/操作URL的黑科技/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小华">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小华坚决上王者">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/blog/2019/06/14/操作URL的黑科技/" class="post-title-link" itemprop="url">操作URL的黑科技</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-14 18:02:06" itemprop="dateCreated datePublished" datetime="2019-06-14T18:02:06+00:00">2019-06-14</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-03-10 12:47:44" itemprop="dateModified" datetime="2020-03-10T12:47:44+00:00">2020-03-10</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>现在有这么个URL：<a href="http://www.baidu.com/s?wd=蔡徐坤&amp;skill=篮球&amp;year=2019" target="_blank" rel="noopener">www.baidu.com/s?wd=蔡徐坤&amp;skill=篮球&amp;year=2019</a> ，怎么才能获取query上的字段呢？这时候正则表达式就派上用场了，效果如图：</p>
+<p><img src="http://qiniu.tbmao.com/URLSearchParams1.jpg" alt></p>
+<p>杀鸡焉用牛刀呢，今天我们来学习下专门用来处理URL的query的接口：URLSearchParams 。</p>
+<h3 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h3><p>只需要new一个URLSearchParams的实例即可，代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> url = <span class="string">'?wd=蔡徐坤&amp;skill=篮球&amp;year=2019'</span>;</span><br><span class="line"><span class="keyword">let</span> searchParams = <span class="keyword">new</span> URLSearchParams(url);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> p <span class="keyword">of</span> searchParams) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(p);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ["wd", "蔡徐坤"]</span></span><br><span class="line"><span class="comment">// ["skill", "篮球"]</span></span><br><span class="line"><span class="comment">// ["year", "2019"]</span></span><br></pre></td></tr></table></figure>
+<h3 id="获取单个字段"><a href="#获取单个字段" class="headerlink" title="获取单个字段"></a>获取单个字段</h3><p>假如现在我只想获取单个字段的值，该怎么办呢？只需要调用这个实例的get方法即可， 代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">searchParams.get(<span class="string">'wd'</span>) <span class="comment">// "蔡徐坤"</span></span><br><span class="line">searchParams.get(<span class="string">'skill'</span>) <span class="comment">// "篮球"</span></span><br><span class="line">searchParams.get(<span class="string">'year'</span>) <span class="comment">// "2019"</span></span><br></pre></td></tr></table></figure>
+<p>有时候不知道一个字段是否存在，所以想事先校验下。使用实例的has方法进行判断，代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">searchParams.has(<span class="string">'wd'</span>) <span class="comment">// true</span></span><br><span class="line">searchParams.has(<span class="string">'age'</span>) <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<h3 id="添加字段"><a href="#添加字段" class="headerlink" title="添加字段"></a>添加字段</h3><p>实例提供了append方法来添加字段，这个方法接收两个参数，前者是key，后者是value，代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">searchParams.append(<span class="string">'age'</span>, <span class="number">26</span>);</span><br><span class="line">searchParams.has(<span class="string">'age'</span>); <span class="comment">// true</span></span><br><span class="line">searchParams.get(<span class="string">'age'</span>); <span class="comment">// 26</span></span><br></pre></td></tr></table></figure>
+<h3 id="删除字段"><a href="#删除字段" class="headerlink" title="删除字段"></a>删除字段</h3><p>现在不想要year字段了，直接使用delete即可，代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">searchParams.delete(<span class="string">'year'</span>);</span><br><span class="line">searchParams.has(<span class="string">'year'</span>); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<h3 id="设置字段"><a href="#设置字段" class="headerlink" title="设置字段"></a>设置字段</h3><p>有时候想重写一个字段，而不是添加(append)一个字段，这时候需要使用set方法，比如，我们觉得坤哥不仅会篮球，还会唱，跳，rap。代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">searchParams.set(<span class="string">'skill'</span>, <span class="string">'篮球 唱 跳 rap'</span>);</span><br></pre></td></tr></table></figure></p>
+<h3 id="转为字符串"><a href="#转为字符串" class="headerlink" title="转为字符串"></a>转为字符串</h3><p>修改实例后，有时候需要再转为字符串，进行路由跳转等，使用toString方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">searchParams.toString(); <span class="comment">// "wd=蔡徐坤&amp;skill=篮球+唱+跳+rap&amp;year=2019&amp;age=26"</span></span><br></pre></td></tr></table></figure>
+<h3 id="一波操作后"><a href="#一波操作后" class="headerlink" title="一波操作后"></a>一波操作后</h3><p><img src="http://qiniu.tbmao.com/URLSearchParams2.gif" alt></p>
+<h3 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h3><p>现代浏览器基本没有啥大问题，但是IE的支持不是很理想。</p>
+<p><img src="http://qiniu.tbmao.com/URLSearchParams3.png" alt></p>
+<h3 id="外链"><a href="#外链" class="headerlink" title="外链"></a>外链</h3><ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams" target="_blank" rel="noopener">MDN参考</a></li>
+<li><a href="https://jser.tech/2019/06/14/操作URL的黑科技/" target="_blank" rel="noopener">博客地址查看 jser.tech</a></li>
+<li><a href="https://juejin.im/post/5d038c9051882548ac439933" target="_blank" rel="noopener">掘金</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/2019/06/13/flutter-awesome-list/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小华">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小华坚决上王者">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/blog/2019/06/13/flutter-awesome-list/" class="post-title-link" itemprop="url">使用flutter打造炫酷的list</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-13 13:04:40" itemprop="dateCreated datePublished" datetime="2019-06-13T13:04:40+00:00">2019-06-13</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-03-10 12:47:44" itemprop="dateModified" datetime="2020-03-10T12:47:44+00:00">2020-03-10</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>使用了flutter一段时间，越来越喜欢flutter了，flutter比我们想象中的强大。这篇文章介绍了怎么使用flutter来展示一个很漂亮的list，先看下效果图。</p>
+<p><img src="http://qiniu.tbmao.com/awesomeList.gif"></p>
+<p>样式还是很漂亮的，下面我们一步一步完成这个小项目。</p>
+<h3 id="开发前准备"><a href="#开发前准备" class="headerlink" title="开发前准备"></a>开发前准备</h3><ul>
+<li><p>我们会用到加载网络图片FadeInImage这么个widget，需要一个loading的icon，所以需要在pubspec.yaml里配置下静态资源，只有配置过的静态资源才可以在项目中使用</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">assets:</span></span><br><span class="line"><span class="bullet">   -</span> <span class="string">assets/images/</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>需要mock一些假数据和一些常用的常量，所以专门建了个constant.dart来管理</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">colors  # 颜色</span><br><span class="line">data  # list的数据</span><br><span class="line"># ...</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="appBar部分"><a href="#appBar部分" class="headerlink" title="appBar部分"></a>appBar部分</h3><ul>
+<li>appBar需要透明的背景这样才能将后面的图片展示出来，看起来很像沉浸式。</li>
+<li>需要将elevations设置为0，这样就可以取消安卓特有的阴影效果，下面是代码:<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Scaffold(</span><br><span class="line">    appBar: AppBar(</span><br><span class="line">    backgroundColor: Colors.transparent,</span><br><span class="line">    elevation: <span class="number">0</span>,</span><br><span class="line">    title: Text(</span><br><span class="line">        <span class="string">'flutter awesome list'</span>,</span><br><span class="line">        style: TextStyle(</span><br><span class="line">        color: Colors.white,</span><br><span class="line">        ),</span><br><span class="line">    ),</span><br><span class="line">    ),</span><br><span class="line">    body: HomeBody(),</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Banner部分"><a href="#Banner部分" class="headerlink" title="Banner部分"></a>Banner部分</h3><ul>
+<li>我们需要使用Transform.translate()这个weidget来将Banner部分向上移动，让appBar全部展示在banner上面，这里给的offset为offset: Offset(0, -56)，56为appBar的高度</li>
+<li><p>下面的斜切造型需要使用ClipPath()来完成，用法有点像canvas，代码如下：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClipper</span> <span class="keyword">extends</span> <span class="title">CustomClipper</span>&lt;<span class="title">Path</span>&gt; </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Path getClip(Size size) &#123;</span><br><span class="line">    Path p = Path();</span><br><span class="line">    p.lineTo(size.width, <span class="number">0.0</span>);</span><br><span class="line">    p.lineTo(size.width, size.height / <span class="number">4.75</span>);</span><br><span class="line">    p.lineTo(<span class="number">0.0</span>, size.height / <span class="number">3.75</span>);</span><br><span class="line">    p.close();</span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="built_in">bool</span> shouldReclip(CustomClipper oldClipper) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用户信息的展示用的widget是ListTile和CircleAvatar，用法也比较简单，我直接贴代码了：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">ListTile(</span><br><span class="line">    leading: CircleAvatar(</span><br><span class="line">    backgroundImage: NetworkImage(CONSTANT.userAvatar),</span><br><span class="line">    ),</span><br><span class="line">    title: Text(</span><br><span class="line">    CONSTANT.userName,</span><br><span class="line">    style: CONSTANT.defaultTextStyle,</span><br><span class="line">    textScaleFactor: <span class="number">1.5</span>,</span><br><span class="line">    ),</span><br><span class="line">    subtitle: Text(</span><br><span class="line">    CONSTANT.userProfile,</span><br><span class="line">    style: CONSTANT.defaultTextStyle,</span><br><span class="line">    ),</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="列表展示部分"><a href="#列表展示部分" class="headerlink" title="列表展示部分"></a>列表展示部分</h3><ul>
+<li>列表的展示使用的是ListView.builder()，两个必传参数itemCount和itemBuilder，前者控制列表的数量，后者控制item的展示，因为item的样式还是比较多的，所以抽离成单独的StatelessWidget组件：AwesomeListItem</li>
+<li>我们用InkWell组件将AwesomeListItem包裹，InkWell是flutter自带的组件，这个组件的特点是点击的时候带有水墨绽开的效果。点击item的时候，我们使用Navigator.push跳转到详情页面</li>
+<li>图片的展示，我们还是使用的FadeInImage，这种渐入效果的用户体验还是很不错的。然后再使用Hero()来包裹FadeInImage，这样能在页面跳转的时候提供图片之间的过渡动画，很是强大和炫酷<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Hero(</span><br><span class="line">    tag: index,</span><br><span class="line">    child: FadeInImage(</span><br><span class="line">        image: NetworkImage(data.image),</span><br><span class="line">        fit: BoxFit.cover,</span><br><span class="line">        placeholder: AssetImage(<span class="string">'assets/images/loading.gif'</span>),</span><br><span class="line">    ),</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="详情页面"><a href="#详情页面" class="headerlink" title="详情页面"></a>详情页面</h3><p>最后就是详情页面的展示，这个页面并没有写什么样式，展示了从列表页跳转过来时，图片的过渡效果，有兴趣的同学可以丰富下页面的样式和内容</p>
+<h3 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h3><ul>
+<li>文章中没有张贴全部代码，感兴趣的同学可以看下源码<a href="https://github.com/xch1029/awesomelist" target="_blank" rel="noopener">xch1029/awesomelist</a></li>
+<li><a href="https://juejin.im/post/5d0203ca5188256aa76bc38e" target="_blank" rel="noopener">掘金</a></li>
+<li><a href="https://www.jianshu.com/p/a7b902b9af88" target="_blank" rel="noopener">简书</a></li>
+<li><a href="https://colorsupplyyy.com/app" target="_blank" rel="noopener">颜色生成工具 来自这里</a></li>
+<li><a href="https://picsum.photos/" target="_blank" rel="noopener">图片 来自这里</a></li>
+<li>受启发于 <a href="https://github.com/samarthagarwal/FlutterAwesomeList" target="_blank" rel="noopener">FlutterAwesomeList</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/2019/06/10/JSON-stringify/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小华">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小华坚决上王者">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/blog/2019/06/10/JSON-stringify/" class="post-title-link" itemprop="url">JSON.stringify</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-10 15:31:27" itemprop="dateCreated datePublished" datetime="2019-06-10T15:31:27+00:00">2019-06-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-03-10 12:47:44" itemprop="dateModified" datetime="2020-03-10T12:47:44+00:00">2020-03-10</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><img src="http://qiniu.tbmao.com/jsonlogo.png" alt></p>
+<blockquote>
+<ul>
+<li>作者: 小华坚决上王者</li>
+<li>建议阅读时间: 2 min</li>
+<li><a href="https://juejin.im/post/5d0b45866fb9a07ed136db0f" target="_blank" rel="noopener">掘金地址</a></li>
+</ul>
+</blockquote>
+<blockquote>
+<p>JSON.stringify()是个经常使用的前端方法，这个函数可以传入三个参数，这里我安利下第三个参数，专门用来<code>美化输出</code>，先看下语法:</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JSON.stringify(value[, replacer [, space]])</span><br></pre></td></tr></table></figure>
+<p>下面我列举了三个常用的例子，直接上代码</p>
+<h3 id="普通用法"><a href="#普通用法" class="headerlink" title="普通用法"></a>普通用法</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  a: <span class="string">'foo'</span>,</span><br><span class="line">  b: <span class="string">'bar'</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(obj))</span><br><span class="line"></span><br><span class="line"><span class="comment">// "&#123;"a":"foo","b":"bar"&#125;"</span></span><br></pre></td></tr></table></figure>
+<h3 id="space传入数字"><a href="#space传入数字" class="headerlink" title="space传入数字"></a>space传入数字</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  a: <span class="string">'foo'</span>,</span><br><span class="line">  b: <span class="string">'bar'</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(obj, <span class="literal">null</span>, <span class="number">2</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">&#123;</span></span><br><span class="line"><span class="comment">  "a": "foo",</span></span><br><span class="line"><span class="comment">  "b": "bar"</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<h3 id="space传入字符串"><a href="#space传入字符串" class="headerlink" title="space传入字符串"></a>space传入字符串</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  a: <span class="string">'foo'</span>,</span><br><span class="line">  b: <span class="string">'bar'</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(obj, <span class="literal">null</span>, <span class="string">'--'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">&#123;</span></span><br><span class="line"><span class="comment">--"a": "foo",</span></span><br><span class="line"><span class="comment">--"b": "bar"</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<h3 id="一个典型的应用场景"><a href="#一个典型的应用场景" class="headerlink" title="一个典型的应用场景"></a>一个典型的应用场景</h3><p>在手机上或者没有控制台的时候，想输出某个对象，这时候会用到alert：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert(obj);</span><br></pre></td></tr></table></figure>
+<p>效果却是这样的：</p>
+<p><img src="http://qiniu.tbmao.com/jsonQQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20190620171826.png" alt><br>此时的你：</p>
+<p><img src="http://qiniu.tbmao.com/jsontimg.jpg" alt></p>
+<p>后来，你使用了JSON.stringify的第三个参数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert(<span class="built_in">JSON</span>.stringify(obj, <span class="literal">null</span>, <span class="number">2</span>));</span><br></pre></td></tr></table></figure>
+<p>结果自然就很通畅了：</p>
+<p><img src="http://qiniu.tbmao.com/jsonQQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20190620171906.png" alt></p>
+<p>怎么样，是不是很爽，space传入数字应该可以满足大多数需求，我也推荐大家这么使用。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/2019/04/12/git-tips/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小华">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小华坚决上王者">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/blog/2019/04/12/git-tips/" class="post-title-link" itemprop="url">git无敌攻略</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-12 09:14:15" itemprop="dateCreated datePublished" datetime="2019-04-12T09:14:15+00:00">2019-04-12</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-03-10 12:47:44" itemprop="dateModified" datetime="2020-03-10T12:47:44+00:00">2020-03-10</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="用户信息"><a href="#用户信息" class="headerlink" title="用户信息"></a>用户信息</h3><p>配置用户个人的用户名和电子邮箱地址：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;xucaihua&quot;</span><br><span class="line">git config --global user.email 158972928@qq.com</span><br></pre></td></tr></table></figure></p>
+<p>如果用了 –global 选项，那么更改的配置文件就是全局的，以后你所有的项目都会默认使用这里配置的用户信息。<br>如果要在某个特定的项目中使用其他用户字或者电子邮箱，只要去掉 –global 选项重新配置即可，新的配置保存在当前项目的 .git/config 文件里。</p>
+<h3 id="查看配置信息"><a href="#查看配置信息" class="headerlink" title="查看配置信息"></a>查看配置信息</h3><p>要检查已有的配置信息，可以使用 git config –list 命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --list</span><br></pre></td></tr></table></figure></p>
+<p>也可以只查看某个变量，像这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config user.name</span><br></pre></td></tr></table></figure></p>
+<h3 id="创建仓库"><a href="#创建仓库" class="headerlink" title="创建仓库"></a>创建仓库</h3><p>Git 使用 git init 命令来初始化一个 Git 仓库，Git 的很多命令都需要在 Git 的仓库中运行，所以 git init 是使用 Git 的第一个命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure></p>
+<h3 id="添加到暂存区和提交"><a href="#添加到暂存区和提交" class="headerlink" title="添加到暂存区和提交"></a>添加到暂存区和提交</h3><p>初始化后，会在该目录下会出现一个名为 .git 的目录，所有 Git 需要的数据和资源都存放在这个目录中。<br>如果当前目录下有几个文件想要纳入版本控制，需要先用 git add 命令告诉 Git 开始对这些文件进行跟踪，然后提交：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add *.js</span><br><span class="line">git add README</span><br><span class="line">git commit -m &quot;初始化&quot;</span><br></pre></td></tr></table></figure></p>
+<p>以上命令将.js结尾的文件和README提交到仓库。如果想添加全部文件，使用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &quot;初始化&quot;</span><br></pre></td></tr></table></figure></p>
+<h3 id="git-clone"><a href="#git-clone" class="headerlink" title="git clone"></a>git clone</h3><p>我们使用 git clone 从现有 Git 仓库中拷贝项目，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone &lt;repo&gt;</span><br></pre></td></tr></table></figure></p>
+<p>如果想指定其他目录名，而不是使用默认，使用以下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone &lt;repo&gt; &lt;directory&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="查看状态"><a href="#查看状态" class="headerlink" title="查看状态"></a>查看状态</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure>
+<h3 id="缩写-add-和commit"><a href="#缩写-add-和commit" class="headerlink" title="缩写 add 和commit"></a>缩写 add 和commit</h3><p>如果你觉得 git add 提交缓存的流程太过繁琐，Git 也允许你用 -a 选项跳过这一步。命令格式如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -am &quot;msg&quot;</span><br></pre></td></tr></table></figure></p>
+<h3 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h3><p>创建分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch (branchname)</span><br></pre></td></tr></table></figure></p>
+<p>切换分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout (branchname)</span><br></pre></td></tr></table></figure></p>
+<p>创建并切换分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b (branchname)</span><br></pre></td></tr></table></figure></p>
+<p>合并分支：<br>一旦某分支有了独立内容，你终究会希望将它合并回到你的主分支。 你可以使用以下命令将任何分支合并到当前分支中去：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge --no-ff (branchname)</span><br></pre></td></tr></table></figure></p>
+<p>列出分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure></p>
+<p>删除分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -d (branchname)</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>更高级的分支策略，建议看看阮一峰的文章：<a href="http://www.ruanyifeng.com/blog/2012/07/git.html" target="_blank" rel="noopener">Git分支管理策略</a></p>
+</blockquote>
+<h3 id="查看提交历史"><a href="#查看提交历史" class="headerlink" title="查看提交历史"></a>查看提交历史</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">git log</span><br><span class="line">// 单行显示</span><br><span class="line">git log --oneline</span><br><span class="line">// 拓扑图</span><br><span class="line">git log --oneline --graph</span><br><span class="line">// 倒序</span><br><span class="line">git log --oneline --reverse</span><br><span class="line">// 指定用户</span><br><span class="line">git log --author=xucaihua --oneline -5</span><br></pre></td></tr></table></figure>
+<h3 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h3><p>如果你达到一个重要的阶段，并希望永远记住那个特别的提交快照，你可以使用 git tag 给它打上标签。<br>比如说，项目发布一个”1.0”版本。 我们可以用 git tag v1.0 命令给最新一次提交打上（HEAD）”v1.0”的标签。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag v1.0</span><br></pre></td></tr></table></figure></p>
+<p>为某次提交追加标签<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag v1.0 654gfg9</span><br></pre></td></tr></table></figure></p>
+<p>使用git log 查看标签<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --oneline --decorate --graph</span><br></pre></td></tr></table></figure></p>
+<p>查看所有标签<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag</span><br></pre></td></tr></table></figure></p>
+<h3 id="添加远程库"><a href="#添加远程库" class="headerlink" title="添加远程库"></a>添加远程库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add [shortname] [url]</span><br></pre></td></tr></table></figure>
+<p>例子：提交到 Github<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@github.com:xxx.git</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure></p>
+<p>查看当前的远程库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote</span><br><span class="line">git remote -v</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/2019/03/27/extensions-for-chrome/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -389,7 +1123,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-02-23 08:34:18" itemprop="dateModified" datetime="2020-02-23T08:34:18+00:00">2020-02-23</time>
+                <time title="修改时间：2020-03-10 12:47:44" itemprop="dateModified" datetime="2020-03-10T12:47:44+00:00">2020-03-10</time>
               
             
           </span>
@@ -551,7 +1285,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-02-23 08:34:18" itemprop="dateModified" datetime="2020-02-23T08:34:18+00:00">2020-02-23</time>
+                <time title="修改时间：2020-03-10 12:47:44" itemprop="dateModified" datetime="2020-03-10T12:47:44+00:00">2020-03-10</time>
               
             
           </span>
@@ -743,7 +1477,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-02-23 08:34:18" itemprop="dateModified" datetime="2020-02-23T08:34:18+00:00">2020-02-23</time>
+                <time title="修改时间：2020-03-10 12:47:44" itemprop="dateModified" datetime="2020-03-10T12:47:44+00:00">2020-03-10</time>
               
             
           </span>
@@ -875,7 +1609,7 @@
                 
                   <a href="/blog/archives/">
                 
-                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-count">17</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -929,7 +1663,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">11</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

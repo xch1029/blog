@@ -96,22 +96,30 @@
 
 
 
-  <meta name="description" content="前言现在有这么个URL：www.baidu.com/s?wd=蔡徐坤&amp;amp;skill=篮球&amp;amp;year=2019 ，怎么才能获取query上的字段呢？这时候正则表达式就派上用场了，效果如图：  杀鸡焉用牛刀呢，今天我们来学习下专门用来处理URL的query的接口：URLSearchParams 。 简单使用只需要new一个URLSearchParams的实例即可，代码： 12345678">
-<meta name="keywords" content="javascript">
+  <meta name="description" content="一般地，我们的博客站点放在github-pages上就足矣了，所以上两篇文章中，我们着重介绍了基于travis-ci和Github来自动化部署我们的站点(上、中)。零成本 + 流畅的写作体验 = 口碑爆好！ 然而，我们在愉快的创作之余，也不能忽视：即使是这么完美的方案，依旧存在一些小缺陷：  Github站点，国内各大搜索引擎基本未收纳，也就是说你的文章很难被用户搜索到 Github在国内的网速很">
+<meta name="keywords" content="Hexo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="操作URL的黑科技">
-<meta property="og:url" content="http://yoursite.com/2019/06/14/操作URL的黑科技/index.html">
+<meta property="og:title" content="2020年，必须拥有自己的博客网站(下)">
+<meta property="og:url" content="http://yoursite.com/2020/02/28/write-a-blog-for-yourself3/index.html">
 <meta property="og:site_name" content="小华坚决上王者">
-<meta property="og:description" content="前言现在有这么个URL：www.baidu.com/s?wd=蔡徐坤&amp;amp;skill=篮球&amp;amp;year=2019 ，怎么才能获取query上的字段呢？这时候正则表达式就派上用场了，效果如图：  杀鸡焉用牛刀呢，今天我们来学习下专门用来处理URL的query的接口：URLSearchParams 。 简单使用只需要new一个URLSearchParams的实例即可，代码： 12345678">
+<meta property="og:description" content="一般地，我们的博客站点放在github-pages上就足矣了，所以上两篇文章中，我们着重介绍了基于travis-ci和Github来自动化部署我们的站点(上、中)。零成本 + 流畅的写作体验 = 口碑爆好！ 然而，我们在愉快的创作之余，也不能忽视：即使是这么完美的方案，依旧存在一些小缺陷：  Github站点，国内各大搜索引擎基本未收纳，也就是说你的文章很难被用户搜索到 Github在国内的网速很">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://qiniu.tbmao.com/URLSearchParams1.jpg">
-<meta property="og:image" content="http://qiniu.tbmao.com/URLSearchParams2.gif">
-<meta property="og:image" content="http://qiniu.tbmao.com/URLSearchParams3.png">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2020/2/27/170870e9404111f7?w=788&h=310&f=png&s=20497">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2020/2/27/170875e85ae93820?w=531&h=595&f=png&s=53839">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2020/2/27/170875ea25179877?w=1632&h=750&f=png&s=31534">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2020/2/27/170874d991ea6a0a?w=465&h=916&f=png&s=64644">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2020/2/27/170874dc8833ef8c?w=945&h=201&f=png&s=5925">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2020/2/27/1708752f1bf074cb?w=1505&h=782&f=png&s=54072">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2020/2/27/170876031729ebb0?w=1574&h=707&f=png&s=61398">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2020/2/28/1708760b16ddd52d?w=1508&h=859&f=png&s=58249">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2020/2/28/1708760e333b2f4d?w=1190&h=354&f=png&s=9704">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2020/2/28/170876109373951a?w=1486&h=775&f=png&s=47869">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2020/2/28/17087765e0747712?w=1086&h=868&f=png&s=69502">
 <meta property="og:updated_time" content="2020-03-10T12:47:44.607Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="操作URL的黑科技">
-<meta name="twitter:description" content="前言现在有这么个URL：www.baidu.com/s?wd=蔡徐坤&amp;amp;skill=篮球&amp;amp;year=2019 ，怎么才能获取query上的字段呢？这时候正则表达式就派上用场了，效果如图：  杀鸡焉用牛刀呢，今天我们来学习下专门用来处理URL的query的接口：URLSearchParams 。 简单使用只需要new一个URLSearchParams的实例即可，代码： 12345678">
-<meta name="twitter:image" content="http://qiniu.tbmao.com/URLSearchParams1.jpg">
+<meta name="twitter:title" content="2020年，必须拥有自己的博客网站(下)">
+<meta name="twitter:description" content="一般地，我们的博客站点放在github-pages上就足矣了，所以上两篇文章中，我们着重介绍了基于travis-ci和Github来自动化部署我们的站点(上、中)。零成本 + 流畅的写作体验 = 口碑爆好！ 然而，我们在愉快的创作之余，也不能忽视：即使是这么完美的方案，依旧存在一些小缺陷：  Github站点，国内各大搜索引擎基本未收纳，也就是说你的文章很难被用户搜索到 Github在国内的网速很">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2020/2/27/170870e9404111f7?w=788&h=310&f=png&s=20497">
 
 
 
@@ -119,7 +127,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/06/14/操作URL的黑科技/">
+  <link rel="canonical" href="http://yoursite.com/2020/02/28/write-a-blog-for-yourself3/">
 
 
 
@@ -129,7 +137,7 @@
   };
 </script>
 
-  <title>操作URL的黑科技 | 小华坚决上王者</title>
+  <title>2020年，必须拥有自己的博客网站(下) | 小华坚决上王者</title>
   
 
 
@@ -335,7 +343,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/2019/06/14/操作URL的黑科技/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/2020/02/28/write-a-blog-for-yourself3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="小华">
@@ -352,7 +360,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">操作URL的黑科技
+          <h1 class="post-title" itemprop="name headline">2020年，必须拥有自己的博客网站(下)
 
               
             
@@ -378,7 +386,7 @@
                 
               
 
-              <time title="创建时间：2019-06-14 18:02:06" itemprop="dateCreated datePublished" datetime="2019-06-14T18:02:06+00:00">2019-06-14</time>
+              <time title="创建时间：2020-02-28 17:14:11" itemprop="dateCreated datePublished" datetime="2020-02-28T17:14:11+00:00">2020-02-28</time>
             
 
             
@@ -429,30 +437,41 @@
       
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>现在有这么个URL：<a href="http://www.baidu.com/s?wd=蔡徐坤&amp;skill=篮球&amp;year=2019" target="_blank" rel="noopener">www.baidu.com/s?wd=蔡徐坤&amp;skill=篮球&amp;year=2019</a> ，怎么才能获取query上的字段呢？这时候正则表达式就派上用场了，效果如图：</p>
-<p><img src="http://qiniu.tbmao.com/URLSearchParams1.jpg" alt></p>
-<p>杀鸡焉用牛刀呢，今天我们来学习下专门用来处理URL的query的接口：URLSearchParams 。</p>
-<h3 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h3><p>只需要new一个URLSearchParams的实例即可，代码：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> url = <span class="string">'?wd=蔡徐坤&amp;skill=篮球&amp;year=2019'</span>;</span><br><span class="line"><span class="keyword">let</span> searchParams = <span class="keyword">new</span> URLSearchParams(url);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> p <span class="keyword">of</span> searchParams) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(p);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ["wd", "蔡徐坤"]</span></span><br><span class="line"><span class="comment">// ["skill", "篮球"]</span></span><br><span class="line"><span class="comment">// ["year", "2019"]</span></span><br></pre></td></tr></table></figure>
-<h3 id="获取单个字段"><a href="#获取单个字段" class="headerlink" title="获取单个字段"></a>获取单个字段</h3><p>假如现在我只想获取单个字段的值，该怎么办呢？只需要调用这个实例的get方法即可， 代码：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">searchParams.get(<span class="string">'wd'</span>) <span class="comment">// "蔡徐坤"</span></span><br><span class="line">searchParams.get(<span class="string">'skill'</span>) <span class="comment">// "篮球"</span></span><br><span class="line">searchParams.get(<span class="string">'year'</span>) <span class="comment">// "2019"</span></span><br></pre></td></tr></table></figure>
-<p>有时候不知道一个字段是否存在，所以想事先校验下。使用实例的has方法进行判断，代码：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">searchParams.has(<span class="string">'wd'</span>) <span class="comment">// true</span></span><br><span class="line">searchParams.has(<span class="string">'age'</span>) <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-<h3 id="添加字段"><a href="#添加字段" class="headerlink" title="添加字段"></a>添加字段</h3><p>实例提供了append方法来添加字段，这个方法接收两个参数，前者是key，后者是value，代码：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">searchParams.append(<span class="string">'age'</span>, <span class="number">26</span>);</span><br><span class="line">searchParams.has(<span class="string">'age'</span>); <span class="comment">// true</span></span><br><span class="line">searchParams.get(<span class="string">'age'</span>); <span class="comment">// 26</span></span><br></pre></td></tr></table></figure>
-<h3 id="删除字段"><a href="#删除字段" class="headerlink" title="删除字段"></a>删除字段</h3><p>现在不想要year字段了，直接使用delete即可，代码：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">searchParams.delete(<span class="string">'year'</span>);</span><br><span class="line">searchParams.has(<span class="string">'year'</span>); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-<h3 id="设置字段"><a href="#设置字段" class="headerlink" title="设置字段"></a>设置字段</h3><p>有时候想重写一个字段，而不是添加(append)一个字段，这时候需要使用set方法，比如，我们觉得坤哥不仅会篮球，还会唱，跳，rap。代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">searchParams.set(<span class="string">'skill'</span>, <span class="string">'篮球 唱 跳 rap'</span>);</span><br></pre></td></tr></table></figure></p>
-<h3 id="转为字符串"><a href="#转为字符串" class="headerlink" title="转为字符串"></a>转为字符串</h3><p>修改实例后，有时候需要再转为字符串，进行路由跳转等，使用toString方法</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">searchParams.toString(); <span class="comment">// "wd=蔡徐坤&amp;skill=篮球+唱+跳+rap&amp;year=2019&amp;age=26"</span></span><br></pre></td></tr></table></figure>
-<h3 id="一波操作后"><a href="#一波操作后" class="headerlink" title="一波操作后"></a>一波操作后</h3><p><img src="http://qiniu.tbmao.com/URLSearchParams2.gif" alt></p>
-<h3 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h3><p>现代浏览器基本没有啥大问题，但是IE的支持不是很理想。</p>
-<p><img src="http://qiniu.tbmao.com/URLSearchParams3.png" alt></p>
-<h3 id="外链"><a href="#外链" class="headerlink" title="外链"></a>外链</h3><ul>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams" target="_blank" rel="noopener">MDN参考</a></li>
-<li><a href="https://jser.tech/2019/06/14/操作URL的黑科技/" target="_blank" rel="noopener">博客地址查看 jser.tech</a></li>
-<li><a href="https://juejin.im/post/5d038c9051882548ac439933" target="_blank" rel="noopener">掘金</a></li>
+        <p>一般地，我们的博客站点放在github-pages上就足矣了，所以上两篇文章中，我们着重介绍了基于travis-ci和Github来自动化部署我们的站点(<a href="https://juejin.im/post/5e514b2de51d45271849db03" target="_blank" rel="noopener">上</a>、<a href="https://juejin.im/post/5e539e4c51882549564b5623" target="_blank" rel="noopener">中</a>)。<code>零成本</code> + <code>流畅的写作体验</code> = <code>口碑爆好</code>！</p>
+<p>然而，我们在愉快的创作之余，也不能忽视：即使是这么完美的方案，依旧存在一些小缺陷：</p>
+<ul>
+<li>Github站点，国内各大搜索引擎基本未收纳，也就是说你的文章很难被用户搜索到</li>
+<li>Github在国内的网速很慢，用户很难一直等待加载中的页面</li>
+<li>在github-pages上部署的站点，域名很长，很难被用户记住</li>
 </ul>
+<p>基于此，我们还有最后的大招，但涉及的知识也挺多，所以不适合新手。至少得用过点linux系统，我们先看下待会要用到的资源和技能：</p>
+<ul>
+<li>centos服务器一台</li>
+<li>装上nginx、Jenkins</li>
+<li>域名一个</li>
+</ul>
+<h3 id="web-hooks"><a href="#web-hooks" class="headerlink" title="web hooks"></a>web hooks</h3><p>我们都知道钩子的概念在前端框架中用的很多，React、Vue的生命周期都是一个一个钩子。<code>web hooks</code>和生命周期很像，只不过是换了主语和宾语，这里的主语是github，宾语是Jenkins，用图表示：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/27/170870e9404111f7?w=788&amp;h=310&amp;f=png&amp;s=20497" alt></p>
+<h3 id="需要安装的Jenkins插件"><a href="#需要安装的Jenkins插件" class="headerlink" title="需要安装的Jenkins插件"></a>需要安装的Jenkins插件</h3><ul>
+<li>Generic Webhook Trigger Plugin</li>
+<li>Publish Over SSH</li>
+<li>第一个是为了配置钩子，第二个是为了连接服务器，我们先去<code>Jenkins-系统配置</code>中将服务器配置好</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/27/170875e85ae93820?w=531&amp;h=595&amp;f=png&amp;s=53839" alt></p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/27/170875ea25179877?w=1632&amp;h=750&amp;f=png&amp;s=31534" alt><br>其中的<code>Remote Directory</code>是博客构建后代码放置的位置</p>
+<h3 id="生成hooks"><a href="#生成hooks" class="headerlink" title="生成hooks"></a>生成hooks</h3><h4 id="在Jenkins的用户管理中生成Api-Token"><a href="#在Jenkins的用户管理中生成Api-Token" class="headerlink" title="在Jenkins的用户管理中生成Api Token"></a>在Jenkins的用户管理中生成Api Token</h4><p><img src="https://user-gold-cdn.xitu.io/2020/2/27/170874d991ea6a0a?w=465&amp;h=916&amp;f=png&amp;s=64644" alt></p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/27/170874dc8833ef8c?w=945&amp;h=201&amp;f=png&amp;s=5925" alt></p>
+<h4 id="为Github的仓库配置web-hooks"><a href="#为Github的仓库配置web-hooks" class="headerlink" title="为Github的仓库配置web hooks"></a>为Github的仓库配置web hooks</h4><p><img src="https://user-gold-cdn.xitu.io/2020/2/27/1708752f1bf074cb?w=1505&amp;h=782&amp;f=png&amp;s=54072" alt><br>URL格式为 http://<username>:<apitoken>@<jenkinsip>:&lt;端口&gt;/generic-webhook-trigger/invoke</jenkinsip></apitoken></username></p>
+<h3 id="配置Jenkins项目"><a href="#配置Jenkins项目" class="headerlink" title="配置Jenkins项目"></a>配置Jenkins项目</h3><h4 id="构建触发器"><a href="#构建触发器" class="headerlink" title="构建触发器"></a>构建触发器</h4><p><img src="https://user-gold-cdn.xitu.io/2020/2/27/170876031729ebb0?w=1574&amp;h=707&amp;f=png&amp;s=61398" alt></p>
+<h4 id="选择构建环境"><a href="#选择构建环境" class="headerlink" title="选择构建环境"></a>选择构建环境</h4><p><img src="https://user-gold-cdn.xitu.io/2020/2/28/1708760b16ddd52d?w=1508&amp;h=859&amp;f=png&amp;s=58249" alt></p>
+<h4 id="构建脚本"><a href="#构建脚本" class="headerlink" title="构建脚本"></a>构建脚本</h4><p><img src="https://user-gold-cdn.xitu.io/2020/2/28/1708760e333b2f4d?w=1190&amp;h=354&amp;f=png&amp;s=9704" alt></p>
+<h4 id="构建后操作"><a href="#构建后操作" class="headerlink" title="构建后操作"></a>构建后操作</h4><p><img src="https://user-gold-cdn.xitu.io/2020/2/28/170876109373951a?w=1486&amp;h=775&amp;f=png&amp;s=47869" alt></p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>现在，提交点代码，去Jenkins就能看到相关的构建信息了</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/28/17087765e0747712?w=1086&amp;h=868&amp;f=png&amp;s=69502" alt></p>
+<h3 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h3><p>下一步就是nginx的配置，这一步相对简单<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name   wwww.xxxxx.com;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        root /home/blog;</span><br><span class="line">        index index.html;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>最后reload一下nginx即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -s reload</span><br></pre></td></tr></table></figure></p>
+<p>到这里，就可以通过自己的域名<code>wwww.xxxxx.com</code>访问博客了</p>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>因为涉及的东西比较多，所以很多都是配了图而缺少文字解释，后面等我有时间，我再慢慢补充，慢慢解释。老铁们要是有问题或者疑问，欢迎留言，我会认真解答的！</p>
 
       
     </div>
@@ -476,7 +495,7 @@
       
         <div class="post-tags">
           
-            <a href="/blog/tags/javascript/" rel="tag"># javascript</a>
+            <a href="/blog/tags/Hexo/" rel="tag"># Hexo</a>
           
         </div>
       
@@ -489,8 +508,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2019/06/13/flutter-awesome-list/" rel="next" title="使用flutter打造炫酷的list">
-                <i class="fa fa-chevron-left"></i> 使用flutter打造炫酷的list
+              <a href="/blog/2020/02/24/write-a-blog-for-yourself2/" rel="next" title="2020年，必须拥有自己的博客网站(中)">
+                <i class="fa fa-chevron-left"></i> 2020年，必须拥有自己的博客网站(中)
               </a>
             
           </div>
@@ -499,8 +518,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/blog/2019/07/11/flutter-scroll-animation/" rel="prev" title="Flutter滚动动画">
-                Flutter滚动动画 <i class="fa fa-chevron-right"></i>
+              <a href="/blog/2020/03/06/ui-divider/" rel="prev" title="打造自己的UI库--分割线篇">
+                打造自己的UI库--分割线篇 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -692,7 +711,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单使用"><span class="nav-number">2.</span> <span class="nav-text">简单使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取单个字段"><span class="nav-number">3.</span> <span class="nav-text">获取单个字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加字段"><span class="nav-number">4.</span> <span class="nav-text">添加字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除字段"><span class="nav-number">5.</span> <span class="nav-text">删除字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置字段"><span class="nav-number">6.</span> <span class="nav-text">设置字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#转为字符串"><span class="nav-number">7.</span> <span class="nav-text">转为字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一波操作后"><span class="nav-number">8.</span> <span class="nav-text">一波操作后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#兼容性"><span class="nav-number">9.</span> <span class="nav-text">兼容性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#外链"><span class="nav-number">10.</span> <span class="nav-text">外链</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#web-hooks"><span class="nav-number">1.</span> <span class="nav-text">web hooks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#需要安装的Jenkins插件"><span class="nav-number">2.</span> <span class="nav-text">需要安装的Jenkins插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成hooks"><span class="nav-number">3.</span> <span class="nav-text">生成hooks</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在Jenkins的用户管理中生成Api-Token"><span class="nav-number">3.1.</span> <span class="nav-text">在Jenkins的用户管理中生成Api Token</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为Github的仓库配置web-hooks"><span class="nav-number">3.2.</span> <span class="nav-text">为Github的仓库配置web hooks</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置Jenkins项目"><span class="nav-number">4.</span> <span class="nav-text">配置Jenkins项目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#构建触发器"><span class="nav-number">4.1.</span> <span class="nav-text">构建触发器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#选择构建环境"><span class="nav-number">4.2.</span> <span class="nav-text">选择构建环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构建脚本"><span class="nav-number">4.3.</span> <span class="nav-text">构建脚本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构建后操作"><span class="nav-number">4.4.</span> <span class="nav-text">构建后操作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试"><span class="nav-number">5.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx"><span class="nav-number">6.</span> <span class="nav-text">Nginx</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意"><span class="nav-number">7.</span> <span class="nav-text">注意</span></a></li></ol></div>
             
 
           </div>

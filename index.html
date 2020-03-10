@@ -327,6 +327,739 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/2020/03/08/high-order-function/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小华">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小华坚决上王者">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/blog/2020/03/08/high-order-function/" class="post-title-link" itemprop="url">JS中的高阶函数</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-03-08 21:24:55" itemprop="dateCreated datePublished" datetime="2020-03-08T21:24:55+00:00">2020-03-08</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-03-10 12:47:44" itemprop="dateModified" datetime="2020-03-10T12:47:44+00:00">2020-03-10</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>“高阶函数”是个我们经常遇到的术语，英文名叫“higher-order function”，对于新手而言，还挺神秘。今天，我们就来探讨下高阶函数。</p>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p><strong>接收函数作为参数或者返回函数的函数</strong></p>
+<p>大白话就是：</p>
+<ol>
+<li>首先是个函数</li>
+<li>参数或者返回值是函数</li>
+</ol>
+<h3 id="举例子"><a href="#举例子" class="headerlink" title="举例子"></a>举例子</h3><p>我们这里举两个例子来覆盖下上文的定义，其中，例一为<code>接收函数</code>作为参数的高阶函数，例二为<code>返回函数</code>的高阶函数。</p>
+<h4 id="例一：函数作为参数"><a href="#例一：函数作为参数" class="headerlink" title="例一：函数作为参数"></a>例一：函数作为参数</h4><p>我们定义了一个叫<code>evaluatesToFive</code>的函数，接收两个参数：第一个参数是一个数字，第二个参数是一个函数。在函数<code>evaluatesToFive</code>中，将参数一(数字)传入参数二(函数)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function evaluatesToFive(num, fn) &#123;</span><br><span class="line">  return fn(num) === 5;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用的场景：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function divideByTwo(num) &#123;</span><br><span class="line">  return num / 2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">evaluatesToFive(10, divideByTwo);</span><br><span class="line">// true</span><br><span class="line"></span><br><span class="line">evaluatesToFive(20, divideByTwo);</span><br><span class="line">// false</span><br></pre></td></tr></table></figure></p>
+<p>哈哈，虽然函数本身用处不大，但是对描述高阶函数来说，很简单易懂。</p>
+<h4 id="例二：返回函数"><a href="#例二：返回函数" class="headerlink" title="例二：返回函数"></a>例二：返回函数</h4><p>本例中，我们创建函数<code>multiplyBy</code>，接收一个数字作为参数，并返回一个新的函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function multiplyBy(num1) &#123;</span><br><span class="line">  return function(num2) &#123;</span><br><span class="line">    return num1 * num2;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用场景：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const multiplyByThree = multiplyBy(3);</span><br><span class="line">const multiplyByFive = multiplyBy(5);</span><br><span class="line"></span><br><span class="line">multipyByThree(10); // 30</span><br><span class="line"></span><br><span class="line">multiplyByFive(10); // 50</span><br></pre></td></tr></table></figure></p>
+<p>是不是有点感觉了，通过生成新的函数以达到更具体的目的。</p>
+<h3 id="更复杂的应用实例"><a href="#更复杂的应用实例" class="headerlink" title="更复杂的应用实例"></a>更复杂的应用实例</h3><p>本例中，我们创建一个函数去检测新用户的注册信息是否能通过检验规则：</p>
+<ul>
+<li>大于18岁</li>
+<li>密码长度大于8</li>
+<li>同意用户协议</li>
+</ul>
+<p>新用户的注册信息大概是这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const newUser = &#123;</span><br><span class="line">  age: 24,</span><br><span class="line">  password: &apos;some long password&apos;,</span><br><span class="line">  agreeToTerms: true,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>接下来，我们来创建三个验证函数，通过返回<code>true</code>，否则返回<code>false</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function oldEnough(user) &#123;</span><br><span class="line">  return user.age &gt;= 18;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function passwordLongEnough(user) &#123;</span><br><span class="line">  return user.password.length &gt;= 8;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function agreeToTerms(user) &#123;</span><br><span class="line">  return user.agreeToTerms === true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>接下来，该主角登场了，我们需要创建一个高阶函数来一次性完成所有的验证。参数一是新用户注册信息，剩下的参数是我们上文创建的三个验证函数。在函数体中依次执行验证：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function validate(obj, ...tests) &#123;</span><br><span class="line">  for (let i = 0; i &lt; tests.length; i++) &#123;</span><br><span class="line">    if (tests[i](obj) === false) &#123;</span><br><span class="line">      return false;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>使用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">const newUser1 = &#123;</span><br><span class="line">  age: 40,</span><br><span class="line">  password: &apos;tncy4ty49r2mrx&apos;,</span><br><span class="line">  agreeToTerms: true,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">validate(newUser1, oldEnough, passwordLongEnough, agreeToTerms);</span><br><span class="line">// true</span><br><span class="line"></span><br><span class="line">const newUser2 = &#123;</span><br><span class="line">  age: 40,</span><br><span class="line">  password: &apos;short&apos;,</span><br><span class="line">  agreeToTerms: true,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">validate(newUser2, oldEnough, passwordLongEnough, agreeToTerms);</span><br><span class="line">// false</span><br></pre></td></tr></table></figure></p>
+<p>到目前为止，已经很棒了，继续看下去，看我们怎么改进</p>
+<h3 id="继续进化"><a href="#继续进化" class="headerlink" title="继续进化"></a>继续进化</h3><p>上文中，我们使用<code>validate</code>函数的时候需要传入多个验证函数(oldEnough, passwordLongEnough, agreeToTerms)，这违反了<code>最少知识原则</code>(有兴趣的同学们可以去了解下<a href="https://baike.baidu.com/item/%E8%BF%AA%E7%B1%B3%E7%89%B9%E6%B3%95%E5%88%99/2107000?fromtitle=%E6%9C%80%E5%B0%91%E7%9F%A5%E8%AF%86%E5%8E%9F%E5%88%99&amp;fromid=11187352&amp;fr=aladdin" target="_blank" rel="noopener">最少知识原则</a>)，看我们怎么将之继续改进：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function createValidator(...tests) &#123;</span><br><span class="line">  return function(obj) &#123;</span><br><span class="line">    for (let i = 0; i &lt; tests.length; i++) &#123;</span><br><span class="line">      if (tests[i](obj) === false) &#123;</span><br><span class="line">        return false;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return true;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个<code>createValidator</code>函数牛逼了，它接收任意数量的函数作为参数，返回值也是个函数。所以这个<code>createValidator</code>也是个高阶函数。</p>
+<p>使用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const userValidator = createValidator(</span><br><span class="line">  oldEnough,</span><br><span class="line">  passwordLongEnough,</span><br><span class="line">  agreeToTerms</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">userValidator(newUser1); // true</span><br><span class="line">userValidator(newUser2); // false</span><br></pre></td></tr></table></figure></p>
+<p>看出什么门道了没？通过函数<code>createValidator</code>生成更具体的验证函数<code>userValidator</code>，再使用<code>userValidator</code>去验证新用户的注册信息。多么精彩的高阶函数！意犹未尽的同学们可以再学习下另一个术语<code>柯里化</code>！</p>
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>本小文，我们一起探讨了JS中的高阶函数，千万不要以为高阶函数只是一道面试题。前端框架中很火的<code>高阶组件</code>也是引用自高阶函数。高阶函数在我们日常开发中经常会使用到，用好了，可以将很多复杂的业务逻辑进行解耦，对于代码的可读性和可维护性很有意义！文中也用到了闭包的知识，聪明的你发现了吗？不要让自己的知识永远躺在面试题中哦！</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/2020/03/06/ui-divider/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小华">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小华坚决上王者">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/blog/2020/03/06/ui-divider/" class="post-title-link" itemprop="url">打造自己的UI库--分割线篇</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-03-06 20:42:46" itemprop="dateCreated datePublished" datetime="2020-03-06T20:42:46+00:00">2020-03-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-03-10 12:47:44" itemprop="dateModified" datetime="2020-03-10T12:47:44+00:00">2020-03-10</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>上篇讲解了<a href="https://juejin.im/post/5e424baef265da571a39c187" target="_blank" rel="noopener"><code>按钮组件</code></a>的开发过程。</p>
+</blockquote>
+<p>接下来的主角是另一个很常见的组件：<code>分割线</code></p>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>顾名思义，为了达到更好的阅读效果，合理地对内容进行分割，这就是分割线。我们来看下今天要开发的几种分割线的实际效果：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/3/6/170af1ce03f2a88b?w=1009&amp;h=364&amp;f=png&amp;s=17898" alt></p>
+<p>大体就是：</p>
+<ul>
+<li>普通分割线</li>
+<li>垂直分割线</li>
+<li>文字分割线</li>
+<li>虚线分割线</li>
+<li>以及以上分割线的组合使用</li>
+</ul>
+<h3 id="定义props"><a href="#定义props" class="headerlink" title="定义props"></a>定义props</h3><p>看看我们定义了哪些props来完成以上的几个功能：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">props: &#123;</span><br><span class="line">    // 水平或者垂直</span><br><span class="line">    type: &#123;</span><br><span class="line">      type: String,</span><br><span class="line">      default: &quot;horizontal&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    // 文字对齐（居左、居中、居右）</span><br><span class="line">    orientation: &#123;</span><br><span class="line">      type: String,</span><br><span class="line">      default: &quot;center&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    // 虚线</span><br><span class="line">    dashed: &#123;</span><br><span class="line">      type: Boolean,</span><br><span class="line">      default: false</span><br><span class="line">    &#125;,</span><br><span class="line">    // 大小</span><br><span class="line">    size: &#123;</span><br><span class="line">      type: String,</span><br><span class="line">      default: &quot;default&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Template"><a href="#Template" class="headerlink" title="Template"></a>Template</h3><p>Template描述的是组件的<code>外形结构</code>，本组件可以分为三层，分别是：最外层的div、中间层的span、以及文字的slot<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div :class=&quot;classes&quot;&gt;</span><br><span class="line">    &lt;span v-if=&quot;hasSlot&quot; :class=&quot;slotClasses&quot;&gt;</span><br><span class="line">      &lt;slot /&gt;</span><br><span class="line">    &lt;/span&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="CSS类的计算"><a href="#CSS类的计算" class="headerlink" title="CSS类的计算"></a>CSS类的计算</h3><p>通过整合传入的props，为Template应用上相关的class，所以这部分都在computed中实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">computed: &#123;</span><br><span class="line">    // 判断是否传入文字</span><br><span class="line">    hasSlot() &#123;</span><br><span class="line">      return !!this.$slots.default;</span><br><span class="line">    &#125;,</span><br><span class="line">    // 外层div的class</span><br><span class="line">    classes() &#123;</span><br><span class="line">      return [</span><br><span class="line">        `$&#123;prefixCls&#125;`,</span><br><span class="line">        `$&#123;prefixCls&#125;-$&#123;this.type&#125;`,</span><br><span class="line">        ...</span><br><span class="line">      ];</span><br><span class="line">    &#125;,</span><br><span class="line">    // 中间层span的class</span><br><span class="line">    slotClasses() &#123;</span><br><span class="line">      return [`$&#123;prefixCls&#125;-inner-text`];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="重头戏：CSS"><a href="#重头戏：CSS" class="headerlink" title="重头戏：CSS"></a>重头戏：CSS</h3><h4 id="首先看下水平或者垂直是怎么控制的："><a href="#首先看下水平或者垂直是怎么控制的：" class="headerlink" title="首先看下水平或者垂直是怎么控制的："></a>首先看下水平或者垂直是怎么控制的：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">.@&#123;divider-prefix-cls&#125; &#123;</span><br><span class="line">    background: @border-color-split;</span><br><span class="line">    &amp;-vertical&#123;</span><br><span class="line">        display: inline-block;</span><br><span class="line">        margin: 0 8px;</span><br><span class="line">        height: 0.9em;</span><br><span class="line">        width: 1px;</span><br><span class="line">        vertical-align: middle;</span><br><span class="line">        position: relative;</span><br><span class="line">        top: -0.06em;</span><br><span class="line">    &#125;</span><br><span class="line">    &amp;-horizontal &#123;</span><br><span class="line">        display: block;</span><br><span class="line">        height: 1px;</span><br><span class="line">        width: 100%;</span><br><span class="line">        min-width: 100%;</span><br><span class="line">        margin: 24px 0;</span><br><span class="line">        clear: both;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="带有文字"><a href="#带有文字" class="headerlink" title="带有文字"></a>带有文字</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">.@&#123;divider-prefix-cls&#125; &#123;</span><br><span class="line">    background: @border-color-split;</span><br><span class="line">    ...</span><br><span class="line">    &amp;-horizontal&amp;-with-text-center,</span><br><span class="line">    &amp;-horizontal&amp;-with-text-left,</span><br><span class="line">    &amp;-horizontal&amp;-with-text-right &#123;</span><br><span class="line">        display: table;</span><br><span class="line">        white-space: nowrap;</span><br><span class="line">        text-align: center;</span><br><span class="line">        background: transparent;</span><br><span class="line">        margin: 16px 0;</span><br><span class="line">        font-size: 16px;</span><br><span class="line">        &amp;:before,</span><br><span class="line">        &amp;:after&#123;</span><br><span class="line">            content: &apos;&apos;;</span><br><span class="line">            display: table-cell;</span><br><span class="line">            position: relative;</span><br><span class="line">            top: 50%;</span><br><span class="line">            width: 50%;</span><br><span class="line">            border-top: 1px solid @border-color-split;</span><br><span class="line">            transform: translateY(50%);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<h4 id="控制文本对齐"><a href="#控制文本对齐" class="headerlink" title="控制文本对齐"></a>控制文本对齐</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// ...</span><br><span class="line">&amp;-horizontal&amp;-with-text-left &#123;</span><br><span class="line">    &amp;:before &#123;</span><br><span class="line">        top: 50%;</span><br><span class="line">        width: 5%;</span><br><span class="line">    &#125;</span><br><span class="line">    &amp;:after &#123;</span><br><span class="line">        top: 50%;</span><br><span class="line">        width: 95%;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&amp;-horizontal&amp;-with-text-right &#123;</span><br><span class="line">    &amp;:before &#123;</span><br><span class="line">        top: 50%;</span><br><span class="line">        width: 95%;</span><br><span class="line">    &#125;</span><br><span class="line">    &amp;:after &#123;</span><br><span class="line">        top: 50%;</span><br><span class="line">        width: 5%;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">// ...</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>CSS这块的代码不是很好讲解，虽然用到的都是平时常见的属性，但是能提炼到如此简洁的地步，并不是那么容易，建议大家完整地看下CSS部分的代码<a href="https://github.com/xch1029/vue-study/blob/master/src/style/components/divider.less" target="_blank" rel="noopener">divider.less</a></p>
+</blockquote>
+<h3 id="更多源码"><a href="#更多源码" class="headerlink" title="更多源码"></a>更多源码</h3><p>以整个的代码结构和思想来自ViewUI，真心觉得ViewUI的代码比ElementUI的容易阅读和学习（个人观点）</p>
+<p><a href="https://github.com/xch1029/vue-study" target="_blank" rel="noopener">项目源码</a></p>
+<p><a href="https://github.com/xch1029/vue-study/blob/master/src/components/divider/divider.vue" target="_blank" rel="noopener">divider.vue</a></p>
+<p><a href="https://github.com/xch1029/vue-study/blob/master/src/style/components/divider.less" target="_blank" rel="noopener">divider.less</a></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/2020/02/28/write-a-blog-for-yourself3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小华">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小华坚决上王者">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/blog/2020/02/28/write-a-blog-for-yourself3/" class="post-title-link" itemprop="url">2020年，必须拥有自己的博客网站(下)</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-28 17:14:11" itemprop="dateCreated datePublished" datetime="2020-02-28T17:14:11+00:00">2020-02-28</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-03-10 12:47:44" itemprop="dateModified" datetime="2020-03-10T12:47:44+00:00">2020-03-10</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>一般地，我们的博客站点放在github-pages上就足矣了，所以上两篇文章中，我们着重介绍了基于travis-ci和Github来自动化部署我们的站点(<a href="https://juejin.im/post/5e514b2de51d45271849db03" target="_blank" rel="noopener">上</a>、<a href="https://juejin.im/post/5e539e4c51882549564b5623" target="_blank" rel="noopener">中</a>)。<code>零成本</code> + <code>流畅的写作体验</code> = <code>口碑爆好</code>！</p>
+<p>然而，我们在愉快的创作之余，也不能忽视：即使是这么完美的方案，依旧存在一些小缺陷：</p>
+<ul>
+<li>Github站点，国内各大搜索引擎基本未收纳，也就是说你的文章很难被用户搜索到</li>
+<li>Github在国内的网速很慢，用户很难一直等待加载中的页面</li>
+<li>在github-pages上部署的站点，域名很长，很难被用户记住</li>
+</ul>
+<p>基于此，我们还有最后的大招，但涉及的知识也挺多，所以不适合新手。至少得用过点linux系统，我们先看下待会要用到的资源和技能：</p>
+<ul>
+<li>centos服务器一台</li>
+<li>装上nginx、Jenkins</li>
+<li>域名一个</li>
+</ul>
+<h3 id="web-hooks"><a href="#web-hooks" class="headerlink" title="web hooks"></a>web hooks</h3><p>我们都知道钩子的概念在前端框架中用的很多，React、Vue的生命周期都是一个一个钩子。<code>web hooks</code>和生命周期很像，只不过是换了主语和宾语，这里的主语是github，宾语是Jenkins，用图表示：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/27/170870e9404111f7?w=788&amp;h=310&amp;f=png&amp;s=20497" alt></p>
+<h3 id="需要安装的Jenkins插件"><a href="#需要安装的Jenkins插件" class="headerlink" title="需要安装的Jenkins插件"></a>需要安装的Jenkins插件</h3><ul>
+<li>Generic Webhook Trigger Plugin</li>
+<li>Publish Over SSH</li>
+<li>第一个是为了配置钩子，第二个是为了连接服务器，我们先去<code>Jenkins-系统配置</code>中将服务器配置好</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/27/170875e85ae93820?w=531&amp;h=595&amp;f=png&amp;s=53839" alt></p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/27/170875ea25179877?w=1632&amp;h=750&amp;f=png&amp;s=31534" alt><br>其中的<code>Remote Directory</code>是博客构建后代码放置的位置</p>
+<h3 id="生成hooks"><a href="#生成hooks" class="headerlink" title="生成hooks"></a>生成hooks</h3><h4 id="在Jenkins的用户管理中生成Api-Token"><a href="#在Jenkins的用户管理中生成Api-Token" class="headerlink" title="在Jenkins的用户管理中生成Api Token"></a>在Jenkins的用户管理中生成Api Token</h4><p><img src="https://user-gold-cdn.xitu.io/2020/2/27/170874d991ea6a0a?w=465&amp;h=916&amp;f=png&amp;s=64644" alt></p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/27/170874dc8833ef8c?w=945&amp;h=201&amp;f=png&amp;s=5925" alt></p>
+<h4 id="为Github的仓库配置web-hooks"><a href="#为Github的仓库配置web-hooks" class="headerlink" title="为Github的仓库配置web hooks"></a>为Github的仓库配置web hooks</h4><p><img src="https://user-gold-cdn.xitu.io/2020/2/27/1708752f1bf074cb?w=1505&amp;h=782&amp;f=png&amp;s=54072" alt><br>URL格式为 http://<username>:<apitoken>@<jenkinsip>:&lt;端口&gt;/generic-webhook-trigger/invoke</jenkinsip></apitoken></username></p>
+<h3 id="配置Jenkins项目"><a href="#配置Jenkins项目" class="headerlink" title="配置Jenkins项目"></a>配置Jenkins项目</h3><h4 id="构建触发器"><a href="#构建触发器" class="headerlink" title="构建触发器"></a>构建触发器</h4><p><img src="https://user-gold-cdn.xitu.io/2020/2/27/170876031729ebb0?w=1574&amp;h=707&amp;f=png&amp;s=61398" alt></p>
+<h4 id="选择构建环境"><a href="#选择构建环境" class="headerlink" title="选择构建环境"></a>选择构建环境</h4><p><img src="https://user-gold-cdn.xitu.io/2020/2/28/1708760b16ddd52d?w=1508&amp;h=859&amp;f=png&amp;s=58249" alt></p>
+<h4 id="构建脚本"><a href="#构建脚本" class="headerlink" title="构建脚本"></a>构建脚本</h4><p><img src="https://user-gold-cdn.xitu.io/2020/2/28/1708760e333b2f4d?w=1190&amp;h=354&amp;f=png&amp;s=9704" alt></p>
+<h4 id="构建后操作"><a href="#构建后操作" class="headerlink" title="构建后操作"></a>构建后操作</h4><p><img src="https://user-gold-cdn.xitu.io/2020/2/28/170876109373951a?w=1486&amp;h=775&amp;f=png&amp;s=47869" alt></p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>现在，提交点代码，去Jenkins就能看到相关的构建信息了</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/28/17087765e0747712?w=1086&amp;h=868&amp;f=png&amp;s=69502" alt></p>
+<h3 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h3><p>下一步就是nginx的配置，这一步相对简单<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name   wwww.xxxxx.com;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        root /home/blog;</span><br><span class="line">        index index.html;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>最后reload一下nginx即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -s reload</span><br></pre></td></tr></table></figure></p>
+<p>到这里，就可以通过自己的域名<code>wwww.xxxxx.com</code>访问博客了</p>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>因为涉及的东西比较多，所以很多都是配了图而缺少文字解释，后面等我有时间，我再慢慢补充，慢慢解释。老铁们要是有问题或者疑问，欢迎留言，我会认真解答的！</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/2020/02/24/write-a-blog-for-yourself2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="小华">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小华坚决上王者">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/blog/2020/02/24/write-a-blog-for-yourself2/" class="post-title-link" itemprop="url">2020年，必须拥有自己的博客网站(中)</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-24 12:39:27" itemprop="dateCreated datePublished" datetime="2020-02-24T12:39:27+00:00">2020-02-24</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-03-10 12:47:44" itemprop="dateModified" datetime="2020-03-10T12:47:44+00:00">2020-03-10</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在上篇教程 <a href="https://juejin.im/post/5e514b2de51d45271849db03" target="_blank" rel="noopener">2020年，必须拥有自己的博客网站(上)</a>中，我们使用Hexo开发了一套博客，并成功使用travis-ci将其自动化部署到github-pages，<a href="https://xch1029.github.io/myblog/" target="_blank" rel="noopener">预览地址</a>。</p>
+<p>本篇教程作为这个系列的第二篇，主要讲解怎么使用Hexo进行创作以及主题的配置。</p>
+<p>官方有个主题集合的页面<a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a>，页面上提供了大量的主题以供大家挑选。但是这不能满足所有的口味，所幸Hexo的主题配置并不局限于官方提供的这些，事实上，任何第三方主题都可以应用到你的博客上，甚至可以自定义样式，这就是Hexo在主题上的灵活性。</p>
+<p>为了证明这点，我们并不使用来自官方页面中的主题，我们在github上找到<code>hexo-theme-next</code>主题，这个主题看起来很清爽：<a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">地址</a></p>
+<h3 id="下载主题"><a href="#下载主题" class="headerlink" title="下载主题"></a>下载主题</h3><p>我们所有的主题都被放在根目录<code>/themes</code>文件夹下，现在只有一个默认主题<code>/themes/landscape</code>。我们现在将<code>next</code>主题的源码下载到<code>themes/next</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 执行</span><br><span class="line">git clone https://github.com/iissnan/hexo-theme-next.git themes/next</span><br></pre></td></tr></table></figure></p>
+<p>有时候，github的网速很慢，我们也可以直接打包下载，然后在themes/next中解压即可，最终你的themes目录看起来是这样的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">|-themes</span><br><span class="line">|--landscape</span><br><span class="line">|--next</span><br></pre></td></tr></table></figure></p>
+<p>现在主题的代码已经下载到了项目中，下一步，修改<code>_config.yml</code>文件以应用<code>next</code>主题，这个文件是<code>hexo</code>中所有配置的集合，以后我们会经常和它打交道。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># _config.yml</span><br><span class="line"># ...</span><br><span class="line"># 中文</span><br><span class="line">language: zh-CN</span><br><span class="line"># 应用next主题</span><br><span class="line">theme: next</span><br></pre></td></tr></table></figure></p>
+<p>配置好后，本地启动博客：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo serve</span><br><span class="line"># 或者简写 hexo s</span><br></pre></td></tr></table></figure></p>
+<p>完美的运行起来了。</p>
+<h3 id="主题的更新"><a href="#主题的更新" class="headerlink" title="主题的更新"></a>主题的更新</h3><p>后面，这个主题要是发布了新的版本，更新是件很简单的事儿：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd themes/next</span><br><span class="line">git pull</span><br></pre></td></tr></table></figure></p>
+<h3 id="修改更多默认配置"><a href="#修改更多默认配置" class="headerlink" title="修改更多默认配置"></a>修改更多默认配置</h3><p>初始化项目时有些默认的配置项不是我们想要的，我们需要再次修改<code>_config.yml</code>文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># _config.yml</span><br><span class="line"># ...</span><br><span class="line">title: 欢迎来到德莱联盟</span><br><span class="line">subtitle: &apos;这是你歇脚的地方&apos;</span><br><span class="line">author: 迈克尔</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/24/1707762d166630c4?w=1920&amp;h=944&amp;f=png&amp;s=45272" alt><br>现在有点样子了</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/24/170776a36206bdb1?w=640&amp;h=133&amp;f=png&amp;s=4964" alt></p>
+<p>页脚的强力驱动和主题我们也可以隐藏了，这些配置属于<code>next</code>，所以我们需要修改<code>/themes/next/_config.yml</code>文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">powered:</span><br><span class="line">  # Hexo link (Powered by Hexo).</span><br><span class="line">  enable: false</span><br><span class="line"></span><br><span class="line">theme:</span><br><span class="line">  # Theme &amp; scheme info link (Theme - NexT.scheme).</span><br><span class="line">  enable: false</span><br></pre></td></tr></table></figure></p>
+<h3 id="开始编写第一篇文章"><a href="#开始编写第一篇文章" class="headerlink" title="开始编写第一篇文章"></a>开始编写第一篇文章</h3><p>让我们开启创作之旅吧，写下第一篇文章。在Hexo中写作使用的是<code>markdown</code>，所以在写作之前，我们简单温习下markdown的语法：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/24/1707776d5ea7a90e?w=1362&amp;h=682&amp;f=png&amp;s=67550" alt></p>
+<p>运行以下命令生成一篇文章<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># hexo new [layout] &lt;title&gt;</span><br><span class="line">hexo new welcome-lol</span><br></pre></td></tr></table></figure></p>
+<p>hexo自动为我们生成了.md文件：<code>/source/_posts/welcome-lol.md</code>，我们继续，开始编辑这个文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"># welcome-lol.md</span><br><span class="line">---</span><br><span class="line">title: 欢迎大家一起来玩LOL</span><br><span class="line">date: 2020-02-24 21:56:12</span><br><span class="line">tags: games</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">### 什么是英雄联盟？</span><br><span class="line">英雄联盟（League of Legends）是由美国Riot Games开发，腾讯游戏运营的全新英雄对战网游。英雄联盟的主创团队由各著名游戏公司的核心美术、策划、程序人员组成，他们打造了游戏中风格特色各异的英雄，加入更加丰富的物品合成系统、地图玩法、天梯匹配机制，以及独创的“召唤师”技能、符文、天赋组合，让玩家感受不一样的英雄对战网游。</span><br><span class="line"></span><br><span class="line">在游戏中，玩家将扮演一位召唤者，并选择你所信任的联盟国进入这个游戏的正义领域，为了控制瓦罗然的权利而奋战。在这个联盟中只有一条规则：胜者就是一切！</span><br><span class="line"></span><br><span class="line">### 全新英雄对战网游</span><br><span class="line">英雄联盟中拥有的海量英雄及皮肤让人印象深刻——这些英雄不仅在外观上风格迥异，甚至个个都有自己独特的性格和脾气，例如：正气凛然的无畏先锋军团领袖—德玛西亚之力盖伦、意志坚强的弗雷尔卓德部族领袖—寒冰射手艾希、乐于钻研的魔法学者—流浪法师瑞兹……除此之外，你还可以在英雄联盟中看到代表不同地域文化特色的角色或皮肤，其中包括中国武术大师、北欧冰雪巨人、日本忍者、古埃及神话角色等。</span><br><span class="line"></span><br><span class="line">在游戏中，身为召唤师的玩家在每局游戏中都将召唤一位英雄帮助自己进行战斗。目前已经有许多英雄协助他们达成目标，在英雄联盟中完成各自心中的正义之战！我们也深信，在英雄联盟超过100位英雄中，总有一个是合适你的！</span><br><span class="line"></span><br><span class="line">英雄，为你而战！</span><br><span class="line"></span><br><span class="line">注：英雄联盟每周有13位免费英雄可供使用</span><br><span class="line"></span><br><span class="line">### 初识《英雄联盟》</span><br><span class="line">首次进入游戏的玩家，系统会提示他选择自己的游戏水平，目前共分为4个等级，分别为</span><br><span class="line">- 我是新手</span><br><span class="line">- 我玩过英雄对战游戏</span><br><span class="line">- 我是高手</span><br><span class="line">- 我是大湿</span><br><span class="line">&gt; 我们强烈建议新手玩家选择等级 `我是新手` 通过游戏中的新手教程来了解基础操作。</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/24/1707784edf5b12a2?w=1920&amp;h=944&amp;f=png&amp;s=74938" alt><br>真的是太酷了，hexo为我们做了大量背后的脏活，我们只要集中精力在我们的创作上即可！</p>
+<h3 id="开启更多特性"><a href="#开启更多特性" class="headerlink" title="开启更多特性"></a>开启更多特性</h3><p>可以说，<code>_config.yml</code>文件承载着博客的一切，这一步我们加入更多的有趣特性，比如Github链接、Github徽章、关于我页面等：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/2/24/170779b5602c481e?w=1920&amp;h=944&amp;f=png&amp;s=31921" alt></p>
+<h3 id="提交代码"><a href="#提交代码" class="headerlink" title="提交代码"></a>提交代码</h3><p>最后一步，提交代码至Github，触发travis-ci的自动化构建，再次查看我们的博客地址，已经有了新的变化！！！<br><a href="https://xch1029.github.io/myblog/" target="_blank" rel="noopener">博客预览地址</a></p>
+<h3 id="下一篇"><a href="#下一篇" class="headerlink" title="下一篇"></a>下一篇</h3><p>请持续关注这个系列，下一篇：基于Jenkins自动化部署博客到自己的服务器和域名</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/2020/02/23/write-a-blog-for-yourself/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -372,12 +1105,24 @@
                 
               
 
-              <time title="创建时间：2020-02-23 16:26:18 / 修改时间：08:34:18" itemprop="dateCreated datePublished" datetime="2020-02-23T16:26:18+00:00">2020-02-23</time>
+              <time title="创建时间：2020-02-23 16:26:18" itemprop="dateCreated datePublished" datetime="2020-02-23T16:26:18+00:00">2020-02-23</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-03-10 12:47:44" itemprop="dateModified" datetime="2020-03-10T12:47:44+00:00">2020-03-10</time>
               
             
           </span>
@@ -578,12 +1323,24 @@
                 
               
 
-              <time title="创建时间：2020-02-19 15:24:16 / 修改时间：15:25:09" itemprop="dateCreated datePublished" datetime="2020-02-19T15:24:16+00:00">2020-02-19</time>
+              <time title="创建时间：2020-02-19 23:24:16" itemprop="dateCreated datePublished" datetime="2020-02-19T23:24:16+00:00">2020-02-19</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-03-10 12:47:44" itemprop="dateModified" datetime="2020-03-10T12:47:44+00:00">2020-03-10</time>
               
             
           </span>
@@ -755,7 +1512,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-02-23 08:34:18" itemprop="dateModified" datetime="2020-02-23T08:34:18+00:00">2020-02-23</time>
+                <time title="修改时间：2020-03-10 12:47:44" itemprop="dateModified" datetime="2020-03-10T12:47:44+00:00">2020-03-10</time>
               
             
           </span>
@@ -948,7 +1705,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-02-23 08:34:18" itemprop="dateModified" datetime="2020-02-23T08:34:18+00:00">2020-02-23</time>
+                <time title="修改时间：2020-03-10 12:47:44" itemprop="dateModified" datetime="2020-03-10T12:47:44+00:00">2020-03-10</time>
               
             
           </span>
@@ -1143,7 +1900,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-02-23 08:34:18" itemprop="dateModified" datetime="2020-02-23T08:34:18+00:00">2020-02-23</time>
+                <time title="修改时间：2020-03-10 12:47:44" itemprop="dateModified" datetime="2020-03-10T12:47:44+00:00">2020-03-10</time>
               
             
           </span>
@@ -1325,7 +2082,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-02-23 08:34:18" itemprop="dateModified" datetime="2020-02-23T08:34:18+00:00">2020-02-23</time>
+                <time title="修改时间：2020-03-10 12:47:44" itemprop="dateModified" datetime="2020-03-10T12:47:44+00:00">2020-03-10</time>
               
             
           </span>
@@ -1467,740 +2224,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/2019/06/14/操作URL的黑科技/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="小华">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小华坚决上王者">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/blog/2019/06/14/操作URL的黑科技/" class="post-title-link" itemprop="url">操作URL的黑科技</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-06-14 18:02:06" itemprop="dateCreated datePublished" datetime="2019-06-14T18:02:06+00:00">2019-06-14</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-02-23 08:34:18" itemprop="dateModified" datetime="2020-02-23T08:34:18+00:00">2020-02-23</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>现在有这么个URL：<a href="http://www.baidu.com/s?wd=蔡徐坤&amp;skill=篮球&amp;year=2019" target="_blank" rel="noopener">www.baidu.com/s?wd=蔡徐坤&amp;skill=篮球&amp;year=2019</a> ，怎么才能获取query上的字段呢？这时候正则表达式就派上用场了，效果如图：</p>
-<p><img src="http://qiniu.tbmao.com/URLSearchParams1.jpg" alt></p>
-<p>杀鸡焉用牛刀呢，今天我们来学习下专门用来处理URL的query的接口：URLSearchParams 。</p>
-<h3 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h3><p>只需要new一个URLSearchParams的实例即可，代码：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> url = <span class="string">'?wd=蔡徐坤&amp;skill=篮球&amp;year=2019'</span>;</span><br><span class="line"><span class="keyword">let</span> searchParams = <span class="keyword">new</span> URLSearchParams(url);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> p <span class="keyword">of</span> searchParams) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(p);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ["wd", "蔡徐坤"]</span></span><br><span class="line"><span class="comment">// ["skill", "篮球"]</span></span><br><span class="line"><span class="comment">// ["year", "2019"]</span></span><br></pre></td></tr></table></figure>
-<h3 id="获取单个字段"><a href="#获取单个字段" class="headerlink" title="获取单个字段"></a>获取单个字段</h3><p>假如现在我只想获取单个字段的值，该怎么办呢？只需要调用这个实例的get方法即可， 代码：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">searchParams.get(<span class="string">'wd'</span>) <span class="comment">// "蔡徐坤"</span></span><br><span class="line">searchParams.get(<span class="string">'skill'</span>) <span class="comment">// "篮球"</span></span><br><span class="line">searchParams.get(<span class="string">'year'</span>) <span class="comment">// "2019"</span></span><br></pre></td></tr></table></figure>
-<p>有时候不知道一个字段是否存在，所以想事先校验下。使用实例的has方法进行判断，代码：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">searchParams.has(<span class="string">'wd'</span>) <span class="comment">// true</span></span><br><span class="line">searchParams.has(<span class="string">'age'</span>) <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-<h3 id="添加字段"><a href="#添加字段" class="headerlink" title="添加字段"></a>添加字段</h3><p>实例提供了append方法来添加字段，这个方法接收两个参数，前者是key，后者是value，代码：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">searchParams.append(<span class="string">'age'</span>, <span class="number">26</span>);</span><br><span class="line">searchParams.has(<span class="string">'age'</span>); <span class="comment">// true</span></span><br><span class="line">searchParams.get(<span class="string">'age'</span>); <span class="comment">// 26</span></span><br></pre></td></tr></table></figure>
-<h3 id="删除字段"><a href="#删除字段" class="headerlink" title="删除字段"></a>删除字段</h3><p>现在不想要year字段了，直接使用delete即可，代码：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">searchParams.delete(<span class="string">'year'</span>);</span><br><span class="line">searchParams.has(<span class="string">'year'</span>); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-<h3 id="设置字段"><a href="#设置字段" class="headerlink" title="设置字段"></a>设置字段</h3><p>有时候想重写一个字段，而不是添加(append)一个字段，这时候需要使用set方法，比如，我们觉得坤哥不仅会篮球，还会唱，跳，rap。代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">searchParams.set(<span class="string">'skill'</span>, <span class="string">'篮球 唱 跳 rap'</span>);</span><br></pre></td></tr></table></figure></p>
-<h3 id="转为字符串"><a href="#转为字符串" class="headerlink" title="转为字符串"></a>转为字符串</h3><p>修改实例后，有时候需要再转为字符串，进行路由跳转等，使用toString方法</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">searchParams.toString(); <span class="comment">// "wd=蔡徐坤&amp;skill=篮球+唱+跳+rap&amp;year=2019&amp;age=26"</span></span><br></pre></td></tr></table></figure>
-<h3 id="一波操作后"><a href="#一波操作后" class="headerlink" title="一波操作后"></a>一波操作后</h3><p><img src="http://qiniu.tbmao.com/URLSearchParams2.gif" alt></p>
-<h3 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h3><p>现代浏览器基本没有啥大问题，但是IE的支持不是很理想。</p>
-<p><img src="http://qiniu.tbmao.com/URLSearchParams3.png" alt></p>
-<h3 id="外链"><a href="#外链" class="headerlink" title="外链"></a>外链</h3><ul>
-<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams" target="_blank" rel="noopener">MDN参考</a></li>
-<li><a href="https://jser.tech/2019/06/14/操作URL的黑科技/" target="_blank" rel="noopener">博客地址查看 jser.tech</a></li>
-<li><a href="https://juejin.im/post/5d038c9051882548ac439933" target="_blank" rel="noopener">掘金</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/2019/06/13/flutter-awesome-list/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="小华">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小华坚决上王者">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/blog/2019/06/13/flutter-awesome-list/" class="post-title-link" itemprop="url">使用flutter打造炫酷的list</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-06-13 13:04:40" itemprop="dateCreated datePublished" datetime="2019-06-13T13:04:40+00:00">2019-06-13</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-02-23 08:34:18" itemprop="dateModified" datetime="2020-02-23T08:34:18+00:00">2020-02-23</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>使用了flutter一段时间，越来越喜欢flutter了，flutter比我们想象中的强大。这篇文章介绍了怎么使用flutter来展示一个很漂亮的list，先看下效果图。</p>
-<p><img src="http://qiniu.tbmao.com/awesomeList.gif"></p>
-<p>样式还是很漂亮的，下面我们一步一步完成这个小项目。</p>
-<h3 id="开发前准备"><a href="#开发前准备" class="headerlink" title="开发前准备"></a>开发前准备</h3><ul>
-<li><p>我们会用到加载网络图片FadeInImage这么个widget，需要一个loading的icon，所以需要在pubspec.yaml里配置下静态资源，只有配置过的静态资源才可以在项目中使用</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">assets:</span></span><br><span class="line"><span class="bullet">   -</span> <span class="string">assets/images/</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>需要mock一些假数据和一些常用的常量，所以专门建了个constant.dart来管理</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">colors  # 颜色</span><br><span class="line">data  # list的数据</span><br><span class="line"># ...</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="appBar部分"><a href="#appBar部分" class="headerlink" title="appBar部分"></a>appBar部分</h3><ul>
-<li>appBar需要透明的背景这样才能将后面的图片展示出来，看起来很像沉浸式。</li>
-<li>需要将elevations设置为0，这样就可以取消安卓特有的阴影效果，下面是代码:<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Scaffold(</span><br><span class="line">    appBar: AppBar(</span><br><span class="line">    backgroundColor: Colors.transparent,</span><br><span class="line">    elevation: <span class="number">0</span>,</span><br><span class="line">    title: Text(</span><br><span class="line">        <span class="string">'flutter awesome list'</span>,</span><br><span class="line">        style: TextStyle(</span><br><span class="line">        color: Colors.white,</span><br><span class="line">        ),</span><br><span class="line">    ),</span><br><span class="line">    ),</span><br><span class="line">    body: HomeBody(),</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="Banner部分"><a href="#Banner部分" class="headerlink" title="Banner部分"></a>Banner部分</h3><ul>
-<li>我们需要使用Transform.translate()这个weidget来将Banner部分向上移动，让appBar全部展示在banner上面，这里给的offset为offset: Offset(0, -56)，56为appBar的高度</li>
-<li><p>下面的斜切造型需要使用ClipPath()来完成，用法有点像canvas，代码如下：</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClipper</span> <span class="keyword">extends</span> <span class="title">CustomClipper</span>&lt;<span class="title">Path</span>&gt; </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Path getClip(Size size) &#123;</span><br><span class="line">    Path p = Path();</span><br><span class="line">    p.lineTo(size.width, <span class="number">0.0</span>);</span><br><span class="line">    p.lineTo(size.width, size.height / <span class="number">4.75</span>);</span><br><span class="line">    p.lineTo(<span class="number">0.0</span>, size.height / <span class="number">3.75</span>);</span><br><span class="line">    p.close();</span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="built_in">bool</span> shouldReclip(CustomClipper oldClipper) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>用户信息的展示用的widget是ListTile和CircleAvatar，用法也比较简单，我直接贴代码了：</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">ListTile(</span><br><span class="line">    leading: CircleAvatar(</span><br><span class="line">    backgroundImage: NetworkImage(CONSTANT.userAvatar),</span><br><span class="line">    ),</span><br><span class="line">    title: Text(</span><br><span class="line">    CONSTANT.userName,</span><br><span class="line">    style: CONSTANT.defaultTextStyle,</span><br><span class="line">    textScaleFactor: <span class="number">1.5</span>,</span><br><span class="line">    ),</span><br><span class="line">    subtitle: Text(</span><br><span class="line">    CONSTANT.userProfile,</span><br><span class="line">    style: CONSTANT.defaultTextStyle,</span><br><span class="line">    ),</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="列表展示部分"><a href="#列表展示部分" class="headerlink" title="列表展示部分"></a>列表展示部分</h3><ul>
-<li>列表的展示使用的是ListView.builder()，两个必传参数itemCount和itemBuilder，前者控制列表的数量，后者控制item的展示，因为item的样式还是比较多的，所以抽离成单独的StatelessWidget组件：AwesomeListItem</li>
-<li>我们用InkWell组件将AwesomeListItem包裹，InkWell是flutter自带的组件，这个组件的特点是点击的时候带有水墨绽开的效果。点击item的时候，我们使用Navigator.push跳转到详情页面</li>
-<li>图片的展示，我们还是使用的FadeInImage，这种渐入效果的用户体验还是很不错的。然后再使用Hero()来包裹FadeInImage，这样能在页面跳转的时候提供图片之间的过渡动画，很是强大和炫酷<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Hero(</span><br><span class="line">    tag: index,</span><br><span class="line">    child: FadeInImage(</span><br><span class="line">        image: NetworkImage(data.image),</span><br><span class="line">        fit: BoxFit.cover,</span><br><span class="line">        placeholder: AssetImage(<span class="string">'assets/images/loading.gif'</span>),</span><br><span class="line">    ),</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="详情页面"><a href="#详情页面" class="headerlink" title="详情页面"></a>详情页面</h3><p>最后就是详情页面的展示，这个页面并没有写什么样式，展示了从列表页跳转过来时，图片的过渡效果，有兴趣的同学可以丰富下页面的样式和内容</p>
-<h3 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h3><ul>
-<li>文章中没有张贴全部代码，感兴趣的同学可以看下源码<a href="https://github.com/xch1029/awesomelist" target="_blank" rel="noopener">xch1029/awesomelist</a></li>
-<li><a href="https://juejin.im/post/5d0203ca5188256aa76bc38e" target="_blank" rel="noopener">掘金</a></li>
-<li><a href="https://www.jianshu.com/p/a7b902b9af88" target="_blank" rel="noopener">简书</a></li>
-<li><a href="https://colorsupplyyy.com/app" target="_blank" rel="noopener">颜色生成工具 来自这里</a></li>
-<li><a href="https://picsum.photos/" target="_blank" rel="noopener">图片 来自这里</a></li>
-<li>受启发于 <a href="https://github.com/samarthagarwal/FlutterAwesomeList" target="_blank" rel="noopener">FlutterAwesomeList</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/2019/06/10/JSON-stringify/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="小华">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小华坚决上王者">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/blog/2019/06/10/JSON-stringify/" class="post-title-link" itemprop="url">JSON.stringify</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-06-10 15:31:27" itemprop="dateCreated datePublished" datetime="2019-06-10T15:31:27+00:00">2019-06-10</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-02-23 08:34:18" itemprop="dateModified" datetime="2020-02-23T08:34:18+00:00">2020-02-23</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><img src="http://qiniu.tbmao.com/jsonlogo.png" alt></p>
-<blockquote>
-<ul>
-<li>作者: 小华坚决上王者</li>
-<li>建议阅读时间: 2 min</li>
-<li><a href="https://juejin.im/post/5d0b45866fb9a07ed136db0f" target="_blank" rel="noopener">掘金地址</a></li>
-</ul>
-</blockquote>
-<blockquote>
-<p>JSON.stringify()是个经常使用的前端方法，这个函数可以传入三个参数，这里我安利下第三个参数，专门用来<code>美化输出</code>，先看下语法:</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JSON.stringify(value[, replacer [, space]])</span><br></pre></td></tr></table></figure>
-<p>下面我列举了三个常用的例子，直接上代码</p>
-<h3 id="普通用法"><a href="#普通用法" class="headerlink" title="普通用法"></a>普通用法</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  a: <span class="string">'foo'</span>,</span><br><span class="line">  b: <span class="string">'bar'</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(obj))</span><br><span class="line"></span><br><span class="line"><span class="comment">// "&#123;"a":"foo","b":"bar"&#125;"</span></span><br></pre></td></tr></table></figure>
-<h3 id="space传入数字"><a href="#space传入数字" class="headerlink" title="space传入数字"></a>space传入数字</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  a: <span class="string">'foo'</span>,</span><br><span class="line">  b: <span class="string">'bar'</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(obj, <span class="literal">null</span>, <span class="number">2</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">&#123;</span></span><br><span class="line"><span class="comment">  "a": "foo",</span></span><br><span class="line"><span class="comment">  "b": "bar"</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-<h3 id="space传入字符串"><a href="#space传入字符串" class="headerlink" title="space传入字符串"></a>space传入字符串</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  a: <span class="string">'foo'</span>,</span><br><span class="line">  b: <span class="string">'bar'</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(obj, <span class="literal">null</span>, <span class="string">'--'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">&#123;</span></span><br><span class="line"><span class="comment">--"a": "foo",</span></span><br><span class="line"><span class="comment">--"b": "bar"</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-<h3 id="一个典型的应用场景"><a href="#一个典型的应用场景" class="headerlink" title="一个典型的应用场景"></a>一个典型的应用场景</h3><p>在手机上或者没有控制台的时候，想输出某个对象，这时候会用到alert：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert(obj);</span><br></pre></td></tr></table></figure>
-<p>效果却是这样的：</p>
-<p><img src="http://qiniu.tbmao.com/jsonQQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20190620171826.png" alt><br>此时的你：</p>
-<p><img src="http://qiniu.tbmao.com/jsontimg.jpg" alt></p>
-<p>后来，你使用了JSON.stringify的第三个参数：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert(<span class="built_in">JSON</span>.stringify(obj, <span class="literal">null</span>, <span class="number">2</span>));</span><br></pre></td></tr></table></figure>
-<p>结果自然就很通畅了：</p>
-<p><img src="http://qiniu.tbmao.com/jsonQQ%E6%B5%8F%E8%A7%88%E5%99%A8%E6%88%AA%E5%9B%BE20190620171906.png" alt></p>
-<p>怎么样，是不是很爽，space传入数字应该可以满足大多数需求，我也推荐大家这么使用。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/2019/04/12/git-tips/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="小华">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="小华坚决上王者">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/blog/2019/04/12/git-tips/" class="post-title-link" itemprop="url">git无敌攻略</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-04-12 09:14:15" itemprop="dateCreated datePublished" datetime="2019-04-12T09:14:15+00:00">2019-04-12</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-02-23 08:34:18" itemprop="dateModified" datetime="2020-02-23T08:34:18+00:00">2020-02-23</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="用户信息"><a href="#用户信息" class="headerlink" title="用户信息"></a>用户信息</h3><p>配置用户个人的用户名和电子邮箱地址：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;xucaihua&quot;</span><br><span class="line">git config --global user.email 158972928@qq.com</span><br></pre></td></tr></table></figure></p>
-<p>如果用了 –global 选项，那么更改的配置文件就是全局的，以后你所有的项目都会默认使用这里配置的用户信息。<br>如果要在某个特定的项目中使用其他用户字或者电子邮箱，只要去掉 –global 选项重新配置即可，新的配置保存在当前项目的 .git/config 文件里。</p>
-<h3 id="查看配置信息"><a href="#查看配置信息" class="headerlink" title="查看配置信息"></a>查看配置信息</h3><p>要检查已有的配置信息，可以使用 git config –list 命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --list</span><br></pre></td></tr></table></figure></p>
-<p>也可以只查看某个变量，像这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config user.name</span><br></pre></td></tr></table></figure></p>
-<h3 id="创建仓库"><a href="#创建仓库" class="headerlink" title="创建仓库"></a>创建仓库</h3><p>Git 使用 git init 命令来初始化一个 Git 仓库，Git 的很多命令都需要在 Git 的仓库中运行，所以 git init 是使用 Git 的第一个命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure></p>
-<h3 id="添加到暂存区和提交"><a href="#添加到暂存区和提交" class="headerlink" title="添加到暂存区和提交"></a>添加到暂存区和提交</h3><p>初始化后，会在该目录下会出现一个名为 .git 的目录，所有 Git 需要的数据和资源都存放在这个目录中。<br>如果当前目录下有几个文件想要纳入版本控制，需要先用 git add 命令告诉 Git 开始对这些文件进行跟踪，然后提交：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add *.js</span><br><span class="line">git add README</span><br><span class="line">git commit -m &quot;初始化&quot;</span><br></pre></td></tr></table></figure></p>
-<p>以上命令将.js结尾的文件和README提交到仓库。如果想添加全部文件，使用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &quot;初始化&quot;</span><br></pre></td></tr></table></figure></p>
-<h3 id="git-clone"><a href="#git-clone" class="headerlink" title="git clone"></a>git clone</h3><p>我们使用 git clone 从现有 Git 仓库中拷贝项目，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone &lt;repo&gt;</span><br></pre></td></tr></table></figure></p>
-<p>如果想指定其他目录名，而不是使用默认，使用以下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone &lt;repo&gt; &lt;directory&gt;</span><br></pre></td></tr></table></figure></p>
-<h3 id="查看状态"><a href="#查看状态" class="headerlink" title="查看状态"></a>查看状态</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure>
-<h3 id="缩写-add-和commit"><a href="#缩写-add-和commit" class="headerlink" title="缩写 add 和commit"></a>缩写 add 和commit</h3><p>如果你觉得 git add 提交缓存的流程太过繁琐，Git 也允许你用 -a 选项跳过这一步。命令格式如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -am &quot;msg&quot;</span><br></pre></td></tr></table></figure></p>
-<h3 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h3><p>创建分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch (branchname)</span><br></pre></td></tr></table></figure></p>
-<p>切换分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout (branchname)</span><br></pre></td></tr></table></figure></p>
-<p>创建并切换分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b (branchname)</span><br></pre></td></tr></table></figure></p>
-<p>合并分支：<br>一旦某分支有了独立内容，你终究会希望将它合并回到你的主分支。 你可以使用以下命令将任何分支合并到当前分支中去：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge --no-ff (branchname)</span><br></pre></td></tr></table></figure></p>
-<p>列出分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure></p>
-<p>删除分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -d (branchname)</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>更高级的分支策略，建议看看阮一峰的文章：<a href="http://www.ruanyifeng.com/blog/2012/07/git.html" target="_blank" rel="noopener">Git分支管理策略</a></p>
-</blockquote>
-<h3 id="查看提交历史"><a href="#查看提交历史" class="headerlink" title="查看提交历史"></a>查看提交历史</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">git log</span><br><span class="line">// 单行显示</span><br><span class="line">git log --oneline</span><br><span class="line">// 拓扑图</span><br><span class="line">git log --oneline --graph</span><br><span class="line">// 倒序</span><br><span class="line">git log --oneline --reverse</span><br><span class="line">// 指定用户</span><br><span class="line">git log --author=xucaihua --oneline -5</span><br></pre></td></tr></table></figure>
-<h3 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h3><p>如果你达到一个重要的阶段，并希望永远记住那个特别的提交快照，你可以使用 git tag 给它打上标签。<br>比如说，项目发布一个”1.0”版本。 我们可以用 git tag v1.0 命令给最新一次提交打上（HEAD）”v1.0”的标签。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag v1.0</span><br></pre></td></tr></table></figure></p>
-<p>为某次提交追加标签<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag v1.0 654gfg9</span><br></pre></td></tr></table></figure></p>
-<p>使用git log 查看标签<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --oneline --decorate --graph</span><br></pre></td></tr></table></figure></p>
-<p>查看所有标签<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag</span><br></pre></td></tr></table></figure></p>
-<h3 id="添加远程库"><a href="#添加远程库" class="headerlink" title="添加远程库"></a>添加远程库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add [shortname] [url]</span><br></pre></td></tr></table></figure>
-<p>例子：提交到 Github<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@github.com:xxx.git</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure></p>
-<p>查看当前的远程库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote</span><br><span class="line">git remote -v</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2247,7 +2270,7 @@
                 
                   <a href="/blog/archives/">
                 
-                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-count">17</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2301,7 +2324,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">11</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
