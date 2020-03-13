@@ -50,4 +50,6 @@ $(document).ready(function() {
   CONFIG.motion.enable && NexT.motion.integrator.bootstrap();
 
   $(document).trigger('bootstrap:after');
+  console.clear();
+  console.log('%c童鞋，欢迎你呢！%c耐你❤♩♪♫♬', 'font-size: 20px;color: blue;','font-size: 20px;color: red;')
 });
