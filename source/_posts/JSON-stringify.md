@@ -1,7 +1,7 @@
 ---
 title: JSON.stringify
 date: 2019-06-10 15:31:27
-tags: javascript
+tags: Javascript
 ---
 ![](http://qiniu.tbmao.com/jsonlogo.png)
 > - 作者: 小华坚决上王者

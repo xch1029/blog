@@ -10,6 +10,8 @@ menu:
   categories: 分类
   tags: 标签
   about: 关于
+  resume: 简历(找工作ing)
+  thinking: 思索
   search: 搜索
   schedule: 日程表
   sitemap: 站点地图
@@ -60,7 +62,7 @@ counter:
   archive_posts:
     zero: 暂无日志。
     one: 目前共计 1 篇日志。
-    other: "目前共计 %d 篇日志。"
+    other: "目前共计 %d 篇文章喽。"
 state:
   posts: 日志
   pages: 页面
@@ -69,13 +71,13 @@ state:
 search:
   placeholder: 搜索...
 cheers:
-  um: 嗯..
+  um: 嗯嗯嗯...上
   ok: 还行
   nice: 不错
   good: 很好
   great: 非常好
   excellent: 太棒了
-keep_on: 继续努力。
+keep_on: 继续努力呀，boy。
 symbol:
   comma: "，"
   period: "。"

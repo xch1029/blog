@@ -1,7 +1,7 @@
 ---
 title: 操作URL的黑科技
 date: 2019-06-14 18:02:06
-tags: javascript
+tags: Javascript
 ---
 ### 前言
 现在有这么个URL：www.baidu.com/s?wd=蔡徐坤&skill=篮球&year=2019 ，怎么才能获取query上的字段呢？这时候正则表达式就派上用场了，效果如图：
