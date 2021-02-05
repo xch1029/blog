@@ -16,3 +16,6 @@
 - [2020年，必须拥有自己的博客网站(下)](https://juejin.im/post/5e57c4e7f265da57187c4fe4)
 - [JS中的高阶函数](https://juejin.im/post/5e649edf6fb9a07cda097d0c)
 - [console完全指北](https://juejin.im/post/5e6b07ebf265da571d2f3e02)
+
+### 访客统计
+<img align="left" src = "https://profile-counter.glitch.me/xch1029_blog/count.svg" alt ="Loading">
